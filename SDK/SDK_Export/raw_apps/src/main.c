@@ -93,18 +93,18 @@ int main()
 		xil_printf("Error adding N/W interface\r\n");
 		return -1;
 	}
-	xil_printf("NW interface added\r\n");
+	//xil_printf("NW interface added\r\n");
 
 	netif_set_default(netif);
-	xil_printf("NW interface set as default\r\n");
+	//xil_printf("NW interface set as default\r\n");
 
 	/* specify that the network if is up */
 	netif_set_up(netif);
-	xil_printf("NW interface up\r\n");
+	//xil_printf("NW interface up\r\n");
 
 	/* now enable interrupts */
 	platform_enable_interrupts();
-	xil_printf("Interrupts enabled\r\n");
+	//xil_printf("Interrupts enabled\r\n");
 
 #if (LWIP_DHCP==1)
 	/* Create a new DHCP client for this interface.
