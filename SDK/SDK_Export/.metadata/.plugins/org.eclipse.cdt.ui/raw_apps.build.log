@@ -1,6 +1,34 @@
-19:40:22 **** Incremental Build of configuration Debug for project raw_apps ****
+16:49:50 **** Auto Build of configuration Debug for project raw_apps ****
 make all 
-make: No se hace nada para `all'.
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: raw_apps.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../standalone_bsp_0/microblaze_0/lib -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "raw_apps.elf"  ./src/dispatch.o ./src/http_response.o ./src/main.o ./src/platform.o ./src/platform_fs.o ./src/platform_gpio.o ./src/prot_malloc.o ./src/web_utils.o ./src/webserver.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: raw_apps.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size raw_apps.elf  |tee "raw_apps.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 151820	   1576	2432804	2586200	 277658	raw_apps.elf
+'Finished building: raw_apps.elf.size'
+' '
+'Invoking: Xilinx ELF Check'
+elfcheck raw_apps.elf -hw ../../lwip_example_hw_platform/system.xml -pe microblaze_0  |tee "raw_apps.elf.elfcheck"
+elfcheck
+Xilinx EDK 14.7 Build EDK_P.20131013
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
 
-19:40:23 Build Finished (took 674ms)
+Command Line: elfcheck -hw ../../lwip_example_hw_platform/system.xml -pe
+microblaze_0 raw_apps.elf 
+
+ELF file	: raw_apps.elf
+elfcheck passed.
+'Finished building: raw_apps.elf.elfcheck'
+' '
+
+16:49:51 Build Finished (took 1s.437ms)
 

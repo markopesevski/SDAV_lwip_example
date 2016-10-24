@@ -108,8 +108,7 @@ timer_callback()
 	}
 }
 
-#ifdef
- __MICROBLAZE__
+#ifdef __MICROBLAZE__
 
 #if XPAR_INTC_0_HAS_FAST == 1
 void xadapter_fasttimer_handler(void)

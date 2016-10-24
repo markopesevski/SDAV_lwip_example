@@ -88,6 +88,7 @@ int main()
 	netmask.addr = 0;
 #endif
 
+	xil_printf("Adding NW interface\r\n");
 	/* Add network interface to the netif_list, and set it as default */
 	if (!xemac_add(netif, &ipaddr, &netmask, &gw, mac_ethernet_address, PLATFORM_EMAC_BASEADDR)) {
 		xil_printf("Error adding N/W interface\r\n");

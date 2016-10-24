@@ -320,3 +320,340 @@ Finished building libraries
 19:40:22 **** Incremental Build of configuration Debug for project raw_apps ****
 make all 
 make: No se hace nada para `all'.
+15:49:39 **** Clean-only build of configuration Debug for project raw_apps ****
+make clean 
+rm -rf  ./src/dispatch.o ./src/echo.o ./src/http_response.o ./src/main.o ./src/platform.o ./src/platform_fs.o ./src/platform_gpio.o ./src/prot_malloc.o ./src/rxperf.o ./src/tftpserver.o ./src/tftputils.o ./src/txperf.o ./src/urxperf.o ./src/utxperf.o ./src/web_utils.o ./src/webserver.o  ./src/dispatch.d ./src/echo.d ./src/http_response.d ./src/main.d ./src/platform.d ./src/platform_fs.d ./src/platform_gpio.d ./src/prot_malloc.d ./src/rxperf.d ./src/tftpserver.d ./src/tftputils.d ./src/txperf.d ./src/urxperf.d ./src/utxperf.d ./src/web_utils.d ./src/webserver.d  raw_apps.elf.size  raw_apps.elf.elfcheck  raw_apps.elf
+' '
+15:49:39 **** Auto Build of configuration Debug for project raw_apps ****
+make all 
+'Building file: ../src/unused/echo.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/unused/echo.d" -MT"src/unused/echo.d" -o "src/unused/echo.o" "../src/unused/echo.c"
+'Finished building: ../src/unused/echo.c'
+' '
+'Building file: ../src/unused/rxperf.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/unused/rxperf.d" -MT"src/unused/rxperf.d" -o "src/unused/rxperf.o" "../src/unused/rxperf.c"
+'Finished building: ../src/unused/rxperf.c'
+' '
+'Building file: ../src/unused/tftpserver.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/unused/tftpserver.d" -MT"src/unused/tftpserver.d" -o "src/unused/tftpserver.o" "../src/unused/tftpserver.c"
+../src/unused/tftpserver.c:41:25: fatal error: prot_malloc.h: No such file or directory
+compilation terminated.
+make: *** [src/unused/tftpserver.o] Error 1
+15:49:56 **** Clean-only build of configuration Debug for project raw_apps ****
+make clean 
+rm -rf  ./src/unused/echo.o ./src/unused/rxperf.o ./src/unused/tftpserver.o ./src/unused/tftputils.o ./src/unused/txperf.o ./src/unused/urxperf.o ./src/unused/utxperf.o  ./src/dispatch.o ./src/http_response.o ./src/main.o ./src/platform.o ./src/platform_fs.o ./src/platform_gpio.o ./src/prot_malloc.o ./src/web_utils.o ./src/webserver.o  ./src/unused/echo.d ./src/unused/rxperf.d ./src/unused/tftpserver.d ./src/unused/tftputils.d ./src/unused/txperf.d ./src/unused/urxperf.d ./src/unused/utxperf.d  ./src/dispatch.d ./src/http_response.d ./src/main.d ./src/platform.d ./src/platform_fs.d ./src/platform_gpio.d ./src/prot_malloc.d ./src/web_utils.d ./src/webserver.d  raw_apps.elf.size  raw_apps.elf.elfcheck  raw_apps.elf
+' '
+15:49:57 **** Auto Build of configuration Debug for project raw_apps ****
+make all 
+'Building file: ../src/dispatch.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/dispatch.d" -MT"src/dispatch.d" -o "src/dispatch.o" "../src/dispatch.c"
+'Finished building: ../src/dispatch.c'
+' '
+'Building file: ../src/http_response.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/http_response.d" -MT"src/http_response.d" -o "src/http_response.o" "../src/http_response.c"
+'Finished building: ../src/http_response.c'
+' '
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.d" -o "src/platform.o" "../src/platform.c"
+../src/platform.c:111:7: error: no macro name given in #ifdef directive
+../src/platform.c: In function 'xadapter_timer_handler':
+../src/platform.c:177:2: warning: implicit declaration of function 'XTime_TSRClearStatusBits' [-Wimplicit-function-declaration]
+../src/platform.c:177:27: error: 'XREG_TSR_CLEAR_ALL' undeclared (first use in this function)
+../src/platform.c:177:27: note: each undeclared identifier is reported only once for each function it appears in
+../src/platform.c: In function 'platform_setup_timer':
+../src/platform.c:191:2: warning: implicit declaration of function 'XExc_RegisterHandler' [-Wimplicit-function-declaration]
+../src/platform.c:191:23: error: 'XEXC_ID_PIT_INT' undeclared (first use in this function)
+../src/platform.c:194:2: warning: implicit declaration of function 'XTime_PITSetInterval' [-Wimplicit-function-declaration]
+../src/platform.c:195:27: error: 'XREG_TSR_CLEAR_ALL' undeclared (first use in this function)
+../src/platform.c:196:2: warning: implicit declaration of function 'XTime_PITEnableAutoReload' [-Wimplicit-function-declaration]
+../src/platform.c:197:2: warning: implicit declaration of function 'XTime_PITEnableInterrupt' [-Wimplicit-function-declaration]
+make: *** [src/platform.o] Error 1
+15:50:11 **** Auto Build of configuration Debug for project raw_apps ****
+make all 
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.d" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building file: ../src/platform_fs.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform_fs.d" -MT"src/platform_fs.d" -o "src/platform_fs.o" "../src/platform_fs.c"
+'Finished building: ../src/platform_fs.c'
+' '
+'Building file: ../src/platform_gpio.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform_gpio.d" -MT"src/platform_gpio.d" -o "src/platform_gpio.o" "../src/platform_gpio.c"
+'Finished building: ../src/platform_gpio.c'
+' '
+'Building file: ../src/prot_malloc.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/prot_malloc.d" -MT"src/prot_malloc.d" -o "src/prot_malloc.o" "../src/prot_malloc.c"
+'Finished building: ../src/prot_malloc.c'
+' '
+'Building file: ../src/web_utils.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/web_utils.d" -MT"src/web_utils.d" -o "src/web_utils.o" "../src/web_utils.c"
+'Finished building: ../src/web_utils.c'
+' '
+'Building file: ../src/webserver.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/webserver.d" -MT"src/webserver.d" -o "src/webserver.o" "../src/webserver.c"
+'Finished building: ../src/webserver.c'
+' '
+'Building target: raw_apps.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../standalone_bsp_0/microblaze_0/lib -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "raw_apps.elf"  ./src/dispatch.o ./src/http_response.o ./src/main.o ./src/platform.o ./src/platform_fs.o ./src/platform_gpio.o ./src/prot_malloc.o ./src/web_utils.o ./src/webserver.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: raw_apps.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size raw_apps.elf  |tee "raw_apps.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 151776	   1576	2432800	2586152	 277628	raw_apps.elf
+'Finished building: raw_apps.elf.size'
+' '
+'Invoking: Xilinx ELF Check'
+elfcheck raw_apps.elf -hw ../../lwip_example_hw_platform/system.xml -pe microblaze_0  |tee "raw_apps.elf.elfcheck"
+elfcheck
+Xilinx EDK 14.7 Build EDK_P.20131013
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
+
+Command Line: elfcheck -hw ../../lwip_example_hw_platform/system.xml -pe
+microblaze_0 raw_apps.elf 
+
+ELF file	: raw_apps.elf
+elfcheck passed.
+'Finished building: raw_apps.elf.elfcheck'
+' '
+16:07:58 **** Clean-only build of configuration Debug for project raw_apps ****
+make clean 
+rm -rf  ./src/dispatch.o ./src/http_response.o ./src/main.o ./src/platform.o ./src/platform_fs.o ./src/platform_gpio.o ./src/prot_malloc.o ./src/web_utils.o ./src/webserver.o  ./src/dispatch.d ./src/http_response.d ./src/main.d ./src/platform.d ./src/platform_fs.d ./src/platform_gpio.d ./src/prot_malloc.d ./src/web_utils.d ./src/webserver.d  raw_apps.elf.size  raw_apps.elf.elfcheck  raw_apps.elf
+' '
+16:07:58 **** Clean-only build of project standalone_bsp_0 ****
+make -k clean 
+rm -rf microblaze_0
+rm: reading directory `microblaze_0/libsrc/lwip140_v1_06_a/src/contrib/ports/xilinx': No such file or directory
+rm: cannot remove directory `microblaze_0/libsrc/lwip140_v1_06_a/src/contrib/ports': Directory not empty
+rm: reading directory `microblaze_0/libsrc/lwip140_v1_06_a/src/lwip-1.4.0/src': No such file or directory
+rm: cannot remove directory `microblaze_0/libsrc/lwip140_v1_06_a/src/lwip-1.4.0': Directory not empty
+make: *** [clean] Error 1
+16:08:01 **** Build of project standalone_bsp_0 ****
+make -k all 
+libgen -hw ../lwip_example_hw_platform/system.xml\
+	       \
+	       -pe microblaze_0 \
+	       -log libgen.log \
+	       system.mss
+libgen
+Xilinx EDK 14.7 Build EDK_P.20131013
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
+
+Command Line: libgen -hw ../lwip_example_hw_platform/system.xml -pe microblaze_0
+-log libgen.log system.mss 
+
+
+Staging source files.
+Running DRCs.
+Runnning DRC for lwIP library... 
+
+
+
+lwIP can be used with the following EMAC peripherals found in your system:
+ethernet_mac
+
+MFS DRC ...
+
+Running generate.
+Little Endian system
+
+MFS generate ...
+
+Running post_generate.
+Running include - 'make -s include "COMPILER=mb-gcc" "ARCHIVER=mb-ar"
+"COMPILER_FLAGS=-mlittle-endian -mno-xl-soft-mul -mxl-barrel-shift
+-mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c  -O2 -c"
+"EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fdata-sections"'.
+
+Running libs - 'make -s libs "COMPILER=mb-gcc" "ARCHIVER=mb-ar"
+"COMPILER_FLAGS=-mlittle-endian -mno-xl-soft-mul -mxl-barrel-shift
+-mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c  -O2 -c"
+"EXTRA_COMPILER_FLAGS=-g -ffunction-sections -fdata-sections"'.
+"Compiling common"
+"Compiling standalone";
+"Compiling lwIP"
+"Compiling lwIP adapter for Xilinx MAC"
+"Creating archive liblwip4.a"
+"Compiling uartlite"
+"Compiling gpio"
+"Compiling emaclite"
+"Compiling bram"
+"Compiling intc"
+"Compiling spi"
+"Compiling tmrctr"
+"Compiling cpu"
+Running execs_generate.
+'Finished building libraries'
+16:08:22 **** Build of configuration Debug for project raw_apps ****
+make all 
+'Building file: ../src/dispatch.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/dispatch.d" -MT"src/dispatch.d" -o "src/dispatch.o" "../src/dispatch.c"
+'Finished building: ../src/dispatch.c'
+' '
+'Building file: ../src/http_response.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/http_response.d" -MT"src/http_response.d" -o "src/http_response.o" "../src/http_response.c"
+'Finished building: ../src/http_response.c'
+' '
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building file: ../src/platform.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform.d" -MT"src/platform.d" -o "src/platform.o" "../src/platform.c"
+'Finished building: ../src/platform.c'
+' '
+'Building file: ../src/platform_fs.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform_fs.d" -MT"src/platform_fs.d" -o "src/platform_fs.o" "../src/platform_fs.c"
+'Finished building: ../src/platform_fs.c'
+' '
+'Building file: ../src/platform_gpio.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/platform_gpio.d" -MT"src/platform_gpio.d" -o "src/platform_gpio.o" "../src/platform_gpio.c"
+'Finished building: ../src/platform_gpio.c'
+' '
+'Building file: ../src/prot_malloc.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/prot_malloc.d" -MT"src/prot_malloc.d" -o "src/prot_malloc.o" "../src/prot_malloc.c"
+'Finished building: ../src/prot_malloc.c'
+' '
+'Building file: ../src/web_utils.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/web_utils.d" -MT"src/web_utils.d" -o "src/web_utils.o" "../src/web_utils.c"
+'Finished building: ../src/web_utils.c'
+' '
+'Building file: ../src/webserver.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/webserver.d" -MT"src/webserver.d" -o "src/webserver.o" "../src/webserver.c"
+'Finished building: ../src/webserver.c'
+' '
+'Building target: raw_apps.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../standalone_bsp_0/microblaze_0/lib -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "raw_apps.elf"  ./src/dispatch.o ./src/http_response.o ./src/main.o ./src/platform.o ./src/platform_fs.o ./src/platform_gpio.o ./src/prot_malloc.o ./src/web_utils.o ./src/webserver.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: raw_apps.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size raw_apps.elf  |tee "raw_apps.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 151776	   1576	2432800	2586152	 277628	raw_apps.elf
+'Finished building: raw_apps.elf.size'
+' '
+'Invoking: Xilinx ELF Check'
+elfcheck raw_apps.elf -hw ../../lwip_example_hw_platform/system.xml -pe microblaze_0  |tee "raw_apps.elf.elfcheck"
+elfcheck
+Xilinx EDK 14.7 Build EDK_P.20131013
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
+
+Command Line: elfcheck -hw ../../lwip_example_hw_platform/system.xml -pe
+microblaze_0 raw_apps.elf 
+
+ELF file	: raw_apps.elf
+elfcheck passed.
+'Finished building: raw_apps.elf.elfcheck'
+' '
+16:12:46 **** Auto Build of project standalone_bsp_0 ****
+make -k all 
+'Finished building libraries'
+16:15:58 **** Auto Build of project standalone_bsp_0 ****
+make -k all 
+'Finished building libraries'
+16:46:02 **** Auto Build of configuration Debug for project raw_apps ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+../src/main.c: In function 'main':
+../src/main.c:83:2: error: 'lw' undeclared (first use in this function)
+../src/main.c:83:2: note: each undeclared identifier is reported only once for each function it appears in
+make: *** [src/main.o] Error 1
+16:46:06 **** Auto Build of configuration Debug for project raw_apps ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: raw_apps.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../standalone_bsp_0/microblaze_0/lib -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "raw_apps.elf"  ./src/dispatch.o ./src/http_response.o ./src/main.o ./src/platform.o ./src/platform_fs.o ./src/platform_gpio.o ./src/prot_malloc.o ./src/web_utils.o ./src/webserver.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: raw_apps.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size raw_apps.elf  |tee "raw_apps.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 151776	   1576	2432800	2586152	 277628	raw_apps.elf
+'Finished building: raw_apps.elf.size'
+' '
+'Invoking: Xilinx ELF Check'
+elfcheck raw_apps.elf -hw ../../lwip_example_hw_platform/system.xml -pe microblaze_0  |tee "raw_apps.elf.elfcheck"
+elfcheck
+Xilinx EDK 14.7 Build EDK_P.20131013
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
+
+Command Line: elfcheck -hw ../../lwip_example_hw_platform/system.xml -pe
+microblaze_0 raw_apps.elf 
+
+ELF file	: raw_apps.elf
+elfcheck passed.
+'Finished building: raw_apps.elf.elfcheck'
+' '
+16:46:47 **** Auto Build of project standalone_bsp_0 ****
+make -k all 
+'Finished building libraries'
+16:49:50 **** Auto Build of configuration Debug for project raw_apps ****
+make all 
+'Building file: ../src/main.c'
+'Invoking: MicroBlaze gcc compiler'
+mb-gcc -Wall -O0 -g3 -c -fmessage-length=0 -I../../standalone_bsp_0/microblaze_0/include -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -ffunction-sections -fdata-sections -MMD -MP -MF"src/main.d" -MT"src/main.d" -o "src/main.o" "../src/main.c"
+'Finished building: ../src/main.c'
+' '
+'Building target: raw_apps.elf'
+'Invoking: MicroBlaze gcc linker'
+mb-gcc -Wl,-T -Wl,../src/lscript.ld -L../../standalone_bsp_0/microblaze_0/lib -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mno-xl-soft-div -mcpu=v8.50.c -mno-xl-soft-mul -Wl,--no-relax -Wl,--gc-sections -o "raw_apps.elf"  ./src/dispatch.o ./src/http_response.o ./src/main.o ./src/platform.o ./src/platform_fs.o ./src/platform_gpio.o ./src/prot_malloc.o ./src/web_utils.o ./src/webserver.o   -Wl,--start-group,-lxil,-lgcc,-lc,--end-group -Wl,--start-group,-lxil,-llwip4,-lgcc,-lc,--end-group
+'Finished building target: raw_apps.elf'
+' '
+'Invoking: MicroBlaze Print Size'
+mb-size raw_apps.elf  |tee "raw_apps.elf.size"
+   text	   data	    bss	    dec	    hex	filename
+ 151820	   1576	2432804	2586200	 277658	raw_apps.elf
+'Finished building: raw_apps.elf.size'
+' '
+'Invoking: Xilinx ELF Check'
+elfcheck raw_apps.elf -hw ../../lwip_example_hw_platform/system.xml -pe microblaze_0  |tee "raw_apps.elf.elfcheck"
+elfcheck
+Xilinx EDK 14.7 Build EDK_P.20131013
+Copyright (c) 1995-2012 Xilinx, Inc.  All rights reserved.
+
+Command Line: elfcheck -hw ../../lwip_example_hw_platform/system.xml -pe
+microblaze_0 raw_apps.elf 
+
+ELF file	: raw_apps.elf
+elfcheck passed.
+'Finished building: raw_apps.elf.elfcheck'
+' '
+16:50:00 **** Auto Build of project standalone_bsp_0 ****
+make -k all 
+'Finished building libraries'
