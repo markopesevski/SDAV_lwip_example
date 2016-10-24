@@ -6,3 +6,9 @@
 **.metadata**
 *Debug*
 *.a
+*doxygen**
+**log*
+**Remote*
+WEB/*.*
+!WEB/carregar_app.bat
+!WEB/index.html
