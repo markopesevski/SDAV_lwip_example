@@ -18,7 +18,6 @@ GOTO CREATE_MFS
 REM crea la imatge per la pagina web
 :CREATE_MFS
 del "image.mfs"
-REM mfsgen -cvbf ./image.mfs 16 css index.html
 mfsgen -cvbf ./image.mfs 16 .\webpage\*
 GOTO DO_BATCH
 

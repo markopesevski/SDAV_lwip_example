@@ -1,4 +1,0 @@
-eclipse.preferences.version=1
-jtag.settings=\ -cable type digilent_plugin
-xmd.launch.timeout=500000
-xmd.transaction.timeout=600000
