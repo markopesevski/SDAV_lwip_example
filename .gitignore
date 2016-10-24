@@ -1,0 +1,8 @@
+*.o
+*.d
+*.metadata*
+**.metadata*
+*.metadata**
+**.metadata**
+*Debug*
+*.a
