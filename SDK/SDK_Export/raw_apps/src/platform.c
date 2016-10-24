@@ -203,7 +203,6 @@ void platform_enable_interrupts()
 	/*
 	 * Enable non-critical exceptions.
 	 */
-	microblaze_enable_interrupts();
 	Xil_ExceptionEnable();
 }
 
