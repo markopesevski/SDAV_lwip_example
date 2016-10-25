@@ -234,7 +234,7 @@ void platform_setup_interrupts()
 
 #ifdef XPAR_ETHERNET_MAC_IP2INTC_IRPT_MASK
 	/* Enable timer and EMAC interrupts in the interrupt controller */
-//	XIntc_EnableIntr(XPAR_XPS_INTC_0_BASEADDR,
+//tc	XIntc_EnableIntr(XPAR_XPS_INTC_0_BASEADDR,
 	XIntc_EnableIntr(XPAR_MICROBLAZE_0_INTC_BASEADDR,
 #ifdef __MICROBLAZE__
 			PLATFORM_TIMER_INTERRUPT_MASK |

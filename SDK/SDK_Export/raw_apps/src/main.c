@@ -93,18 +93,13 @@ int main()
 		xil_printf("Error adding N/W interface\r\n");
 		return -1;
 	}
-	//xil_printf("NW interface added\r\n");
-
 	netif_set_default(netif);
-	//xil_printf("NW interface set as default\r\n");
 
 	/* specify that the network if is up */
 	netif_set_up(netif);
-	//xil_printf("NW interface up\r\n");
 
 	/* now enable interrupts */
 	platform_enable_interrupts();
-	//xil_printf("Interrupts enabled\r\n");
 
 #if (LWIP_DHCP==1)
 	/* Create a new DHCP client for this interface.
@@ -137,12 +132,9 @@ int main()
 	/* receive and process packets */
 	print_ip_settings(&(netif->ip_addr), &(netif->netmask), &(netif->gw));
 #endif
-	xil_printf("DHCP over\r\n");
 
 	/* start the application (web server, rxtest, txtest, etc..) */
-	xil_printf("Starting apps\r\n");
 	start_applications();
-	xil_printf("Apps started\r\n");
 	print_headers();
 
 	while (1) {
