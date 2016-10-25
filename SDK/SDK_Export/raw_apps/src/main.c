@@ -88,18 +88,25 @@ int main()
 	netmask.addr = 0;
 #endif
 
+	xil_printf("Adding NETIF to list\r\n");
 	/* Add network interface to the netif_list, and set it as default */
 	if (!xemac_add(netif, &ipaddr, &netmask, &gw, mac_ethernet_address, PLATFORM_EMAC_BASEADDR)) {
 		xil_printf("Error adding N/W interface\r\n");
 		return -1;
 	}
+	xil_printf("Setting NETIF default\r\n");
 	netif_set_default(netif);
+	xil_printf("NETIF default set\r\n");
 
 	/* specify that the network if is up */
+	xil_printf("Setting NETIF up\r\n");
 	netif_set_up(netif);
+	xil_printf("NETIF up\r\n");
 
 	/* now enable interrupts */
+	xil_printf("Enabling interrupts\r\n");
 	platform_enable_interrupts();
+	xil_printf("Interrupts enabled\r\n");
 
 #if (LWIP_DHCP==1)
 	/* Create a new DHCP client for this interface.
@@ -134,7 +141,9 @@ int main()
 #endif
 
 	/* start the application (web server, rxtest, txtest, etc..) */
+	xil_printf("Starting web app\r\n");
 	start_applications();
+	xil_printf("Web app started\r\n");
 	print_headers();
 
 	while (1) {

@@ -23,13 +23,14 @@ GOTO DO_BATCH
 
 REM si ha detectat el ISE correctament i la imatge ja ha estat creada
 :DO_BATCH
-if exist download.bit del download.bit
-COPY ..\SDK\SDK_Export\lwip_example_hw_platform\download.bit download.bit
+if exist bootloop.bit del bootloop.bit
+REM COPY ..\SDK\SDK_Export\lwip_example_hw_platform\download.bit download.bit
+data2mem -bm ..\SDK\SDK_Export\hw\system_bd.bmm -bt ..\SDK\SDK_Export\hw\system.bit -bd %XILINX_EDK%\sw\lib\microblaze\mb_bootloop_le.elf tag microblaze_0 -o b bootloop.bit
 if exist configuracio_batch_impact.cmd del configuracio_batch_impact.cmd
 @echo setMode -bscan															> configuracio_batch_impact.cmd
 @echo setCable -target "digilent_plugin DEVICE=SN:000000000000 FREQUENCY=-1"	>> configuracio_batch_impact.cmd
 @echo identify																	>> configuracio_batch_impact.cmd
-@echo assignfile -p 1 -file download.bit										>> configuracio_batch_impact.cmd
+@echo assignfile -p 1 -file bootloop.bit										>> configuracio_batch_impact.cmd
 @echo program -p 1																>> configuracio_batch_impact.cmd
 @echo quit																		>> configuracio_batch_impact.cmd
 GOTO CONNECT
