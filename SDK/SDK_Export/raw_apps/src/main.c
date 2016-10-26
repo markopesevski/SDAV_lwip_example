@@ -26,6 +26,12 @@
 #include "xil_printf.h"
 #endif
 
+#ifndef XPAR_INTC_0_HAS_FAST
+#define XPAR_INTC_0_HAS_FAST 1
+#else
+#define XPAR_INTC_0_HAS_FAST 1
+#endif
+
 void print_headers();
 int start_applications();
 int transfer_data();
@@ -105,7 +111,32 @@ int main()
 
 	/* now enable interrupts */
 	xil_printf("Enabling interrupts\r\n");
-	platform_enable_interrupts();
+	//platform_enable_interrupts();
+	microblaze_enable_exceptions();
+	microblaze_enable_interrupts();
+
+	/*
+		__asm__(
+					"mfs     r4, rmsr;"
+					"ori     r4, r4, 0x100;"
+					"mts     rmsr, r4;"
+					"rtsd    r15, 8;"
+					"nop;"
+				);
+
+		__asm__(
+					"addi	r1, r1, -4;"
+					"swi	r12, r1, 0;"
+					"mfs	r12, rmsr;"
+					"ori	r12, r12, 2;"
+					"mts	rmsr, r12;"
+					"lwi	r12, r1, 0;"
+					"rtsd	r15, 8;"
+					"addi	r1, r1, 4;"
+				);
+	*/
+
+
 	xil_printf("Interrupts enabled\r\n");
 
 #if (LWIP_DHCP==1)
@@ -114,8 +145,10 @@ int main()
 	 * the predefined regular intervals after starting the client.
 	 */
 	dhcp_start(netif);
+	xil_printf("DHCP started\r\n");
 	dhcp_timoutcntr = 24;
 	TxPerfConnMonCntr = 0;
+	xil_printf("DHCP loop now\r\n");
 	while(((netif->ip_addr.addr) == 0) && (dhcp_timoutcntr > 0)) {
 		xemacif_input(netif);
 		if (TcpFastTmrFlag) {
@@ -127,6 +160,7 @@ int main()
 			TcpSlowTmrFlag = 0;
 		}
 	}
+	xil_printf("DHCP loop over\r\n");
 	if (dhcp_timoutcntr <= 0) {
 		if ((netif->ip_addr.addr) == 0) {
 			xil_printf("DHCP Timeout\r\n");
