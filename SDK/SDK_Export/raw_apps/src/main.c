@@ -111,9 +111,9 @@ int main()
 
 	/* now enable interrupts */
 	xil_printf("Enabling interrupts\r\n");
-	//platform_enable_interrupts();
-	microblaze_enable_exceptions();
-	microblaze_enable_interrupts();
+	platform_enable_interrupts();
+	//microblaze_enable_exceptions();
+	//microblaze_enable_interrupts();
 
 	/*
 		__asm__(
