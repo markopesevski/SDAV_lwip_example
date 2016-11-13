@@ -200,5 +200,5 @@ void print_web_app_header()
 {
     xil_printf("%20s %6d %s\r\n", "http server",
                         http_port,
-                        "Point your web browser to http://192.168.1.10");
+                        "Point your web browser to http://192.168.1.XXX");
 }
