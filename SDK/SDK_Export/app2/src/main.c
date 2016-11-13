@@ -64,6 +64,7 @@ int main(void)
 	IP4_ADDR(&gw,      192, 168,   1,  1);
     print_ip_settings(&ipaddr, &netmask, &gw);
 #endif
+	lwip_init();
 
 #if (LWIP_DHCP==1)
 	ipaddr.addr = 0;
