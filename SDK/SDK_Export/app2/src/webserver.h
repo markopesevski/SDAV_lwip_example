@@ -35,6 +35,6 @@
 	err_t http_recv_callback(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err);
 	err_t http_accept_callback(void *arg, struct tcp_pcb *newpcb, err_t err);
 	int start_web_application();
-	void print_headers();
+	void print_headers(struct ip_addr *ip);
 
 #endif //__WEBSERVER_H__

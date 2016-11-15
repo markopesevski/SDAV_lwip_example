@@ -27,9 +27,9 @@ void print_ip(char *msg, struct ip_addr *ip)
 
 void print_ip_settings(struct ip_addr *ip, struct ip_addr *mask, struct ip_addr *gw)
 {
-	print_ip("Board IP:       ", ip);
-	print_ip("Netmask :       ", mask);
-	print_ip("Gateway :       ", gw);
+	print_ip("Board IP: ", ip);
+	print_ip("Netmask : ", mask);
+	print_ip("Gateway : ", gw);
 }
 
 int main(void)
@@ -40,6 +40,9 @@ int main(void)
 	/* the mac address of the board. this should be unique per board */
 	unsigned char mac_ethernet_address[] = {0x00, 0x0a, 0x35, 0x00, 0x01, 0x02};
 
+	/* clears output */
+	xil_printf("%c[2J",27);
+
 	netif = &server_netif;
 
 	if (init_platform() < 0)
@@ -48,8 +51,8 @@ int main(void)
 		return -1;
 	}
 
-	xil_printf("\r\n\r\n");
-	xil_printf("-----lwIP RAW Mode Demo Application ------\r\n");
+	xil_printf("\r\n");
+	xil_printf("----- SDAV\tMarko Peshevski -----\r\n");
 	/* initliaze IP addresses to be used */
 	#if (LWIP_DHCP==0)
 		IP4_ADDR(&ipaddr,  192, 168,   1, 10);
@@ -66,7 +69,6 @@ int main(void)
 		netmask.addr = 0;
 	#endif
 
-	xil_printf("Adding NETIF to list\r\n");
 	/* Add network interface to the netif_list, and set it as default */
 	if (!xemac_add(netif, &ipaddr, &netmask, &gw, mac_ethernet_address, PLATFORM_EMAC_BASEADDR))
 	{
@@ -74,19 +76,13 @@ int main(void)
 		return -1;
 	}
 
-	xil_printf("Setting NETIF default\r\n");
 	netif_set_default(netif);
-	xil_printf("NETIF default set\r\n");
 
 	/* specify that the network if is up */
-	xil_printf("Setting NETIF up\r\n");
 	netif_set_up(netif);
-	xil_printf("NETIF up\r\n");
 
 	/* now enable interrupts */
-	xil_printf("Enabling interrupts\r\n");
 	platform_enable_interrupts();
-	xil_printf("Interrupts enabled\r\n");
 
 	#if (LWIP_DHCP==1)
 		/* Create a new DHCP client for this interface.
@@ -94,11 +90,10 @@ int main(void)
 		 * the predefined regular intervals after starting the client.
 		 */
 		dhcp_start(netif);
-		xil_printf("DHCP started\r\n");
 		dhcp_timoutcntr = 24;
 		TxPerfConnMonCntr = 0;
 
-		xil_printf("DHCP loop now\r\n");
+		xil_printf("Poking router for DHCP... ");
 		while(((netif->ip_addr.addr) == 0) && (dhcp_timoutcntr > 0))
 		{
 			xemacif_input(netif);
@@ -113,29 +108,38 @@ int main(void)
 				TcpSlowTmrFlag = 0;
 			}
 		}
-		xil_printf("DHCP loop over\r\n");
 
 		if (dhcp_timoutcntr <= 0)
 		{
 			if ((netif->ip_addr.addr) == 0)
 			{
-				xil_printf("DHCP Timeout\r\n");
-				xil_printf("Configuring default IP of 192.168.1.10\r\n");
+				xil_printf("Timeout\r\n");
+				xil_printf("Trying to configure default IP of 192.168.1.10\r\n");
 				IP4_ADDR(&(netif->ip_addr),  192, 168,   1, 10);
 				IP4_ADDR(&(netif->netmask), 255, 255, 255,  0);
 				IP4_ADDR(&(netif->gw),      192, 168,   1,  1);
 			}
 		}
-
-		/* receive and process packets */
+		else
+		{
+			/* receive and process packets */
+			xil_printf("OK\r\n");
+			xil_printf("DHCP gave following configuration\r\n");
+		}
 		print_ip_settings(&(netif->ip_addr), &(netif->netmask), &(netif->gw));
 	#endif
 
 	/* start the application (web server) */
-	xil_printf("Starting web app\r\n");
-	start_web_application();
-	xil_printf("Web app started\r\n");
-	print_headers();
+	xil_printf("Starting web app... ");
+	if(start_web_application() != 0)
+	{
+		xil_printf("Following error occurred:\r\n");
+	}
+	else
+	{
+		xil_printf("Web app started\r\n");
+		print_headers(&(netif->ip_addr));
+	}
 
 	while (1)
 	{

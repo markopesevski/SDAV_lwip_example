@@ -180,13 +180,15 @@ int start_web_application()
 	return 0;
 }
 
-void print_headers()
+void print_headers(struct ip_addr *ip)
 {
     xil_printf("\r\n");
     xil_printf("%20s %6s %s\r\n", "Server", "Port", "Connect With..");
     xil_printf("%20s %6s %s\r\n", "--------------------", "------", "--------------------");
 
-	xil_printf("%20s %6d %s\r\n", "http server", http_port, "Point your web browser to http://192.168.1.XXX");
+	xil_printf("%20s %6d %s", "http server", http_port, "Point your web browser to http://");
+	xil_printf("%d.%d.%d.%d:80\r\n", ip4_addr1(ip), ip4_addr2(ip), ip4_addr3(ip), ip4_addr4(ip));
 
     xil_printf("\r\n");
+    xil_printf("Now accepting HTTP connections...\r\n");
 }
