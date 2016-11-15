@@ -233,8 +233,8 @@ void dump_payload(char *p, int len)
 	xil_printf("total len = %d\r\n", len);
 }
 
-/* generate and write out an appropriate response for the http request */
-/* 	this assumes that tcp_sndbuf is high enough to send atleast 1 packet */
+/* generate and write out an appropriate response for the http request
+ * this assumes that tcp_sndbuf is high enough to send atleast 1 packet */
 int generate_response(struct tcp_pcb *pcb, char *http_req, int http_req_len)
 {
 	enum http_req_type request_type = decode_http_request(http_req, http_req_len);

@@ -62,6 +62,7 @@ int main(void)
 		return -1;
 	}
 
+	/* set the default network interface (ethernet) */
 	netif_set_default(netif);
 
 	/* specify that the network if is up */

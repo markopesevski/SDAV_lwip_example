@@ -23,7 +23,7 @@
 #define VERBOSE
 
 /* static variables controlling debug printf's in this file */
-static int g_webserver_debug = 0;
+static int g_webserver_debug = 1;
 static unsigned http_port = 80;
 static unsigned http_server_running = 0;
 
