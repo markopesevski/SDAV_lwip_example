@@ -5,41 +5,28 @@
 #include "xil_printf.h"
 #include "lwipopts.h"
 #include "webserver.h"
+#include "lwip/dhcp.h"
+#include "lwip/init.h"
+#include "lwip/tcp.h"
+#include "lwip/tcp_impl.h"
+#include "web_utils.h"
 
-void lwip_init(void);
-void tcp_fasttmr(void);
-void tcp_slowtmr(void);
+#define ETHERNET_MAC_ADDRESS	{0x00, 0x0a, 0x35, 0x00, 0x01, 0x02}
 
 #if LWIP_DHCP==1
 	extern volatile int dhcp_timoutcntr;
-	err_t dhcp_start(struct netif *netif);
 #endif
 
-extern volatile int TxPerfConnMonCntr;
 extern volatile int TcpFastTmrFlag;
 extern volatile int TcpSlowTmrFlag;
 
-void print_ip(char *msg, struct ip_addr *ip)
-{
-	print(msg);
-	xil_printf("%d.%d.%d.%d\r\n", ip4_addr1(ip), ip4_addr2(ip), ip4_addr3(ip), ip4_addr4(ip));
-}
-
-void print_ip_settings(struct ip_addr *ip, struct ip_addr *mask, struct ip_addr *gw)
-{
-	print_ip("Board IP: ", ip);
-	print_ip("Netmask : ", mask);
-	print_ip("Gateway : ", gw);
-}
+/* the mac address of the board. this should be unique per board */
+unsigned char mac_ethernet_address[] = ETHERNET_MAC_ADDRESS;
+struct netif *netif, server_netif;
+struct ip_addr ipaddr, netmask, gw; // gw = gateway
 
 int main(void)
 {
-	struct netif *netif, server_netif;
-	struct ip_addr ipaddr, netmask, gw;
-
-	/* the mac address of the board. this should be unique per board */
-	unsigned char mac_ethernet_address[] = {0x00, 0x0a, 0x35, 0x00, 0x01, 0x02};
-
 	/* clears output */
 	xil_printf("%c[2J",27);
 
@@ -52,18 +39,17 @@ int main(void)
 	}
 
 	xil_printf("\r\n");
-	xil_printf("----- SDAV\tMarko Peshevski -----\r\n");
+	xil_printf("----- SDAV - Marko Peshevski -----\r\n");
+
+	lwip_init();
+
 	/* initliaze IP addresses to be used */
 	#if (LWIP_DHCP==0)
 		IP4_ADDR(&ipaddr,  192, 168,   1, 10);
 		IP4_ADDR(&netmask, 255, 255, 255,  0);
 		IP4_ADDR(&gw,      192, 168,   1,  1);
 		print_ip_settings(&ipaddr, &netmask, &gw);
-	#endif
-
-	lwip_init();
-
-	#if (LWIP_DHCP==1)
+	#elif (LWIP_DHCP==1)
 		ipaddr.addr = 0;
 		gw.addr = 0;
 		netmask.addr = 0;
@@ -91,7 +77,6 @@ int main(void)
 		 */
 		dhcp_start(netif);
 		dhcp_timoutcntr = 24;
-		TxPerfConnMonCntr = 0;
 
 		xil_printf("Poking router for DHCP... ");
 		while(((netif->ip_addr.addr) == 0) && (dhcp_timoutcntr > 0))

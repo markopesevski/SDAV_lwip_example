@@ -1,5 +1,18 @@
 #include "web_utils.h"
 
+void print_ip(char *msg, struct ip_addr *ip)
+{
+	print(msg);
+	xil_printf("%d.%d.%d.%d\r\n", ip4_addr1(ip), ip4_addr2(ip), ip4_addr3(ip), ip4_addr4(ip));
+}
+
+void print_ip_settings(struct ip_addr *ip, struct ip_addr *mask, struct ip_addr *gw)
+{
+	print_ip("Board IP: ", ip);
+	print_ip("Netmask : ", mask);
+	print_ip("Gateway : ", gw);
+}
+
 void print_http_request(char *buf, int n)
 {
 	printf("%s\r\n", buf);

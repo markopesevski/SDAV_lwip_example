@@ -15,5 +15,7 @@
 	int generate_http_header(char *buf, char *fext, int fsize);
 	http_arg *palloc_arg();
 	void pfree_arg(http_arg *arg);
+	void print_ip(char *msg, struct ip_addr *ip);
+	void print_ip_settings(struct ip_addr *ip, struct ip_addr *mask, struct ip_addr *gw);
 
 #endif //__WEB_UTILS_H_

@@ -2,7 +2,6 @@
 
 volatile int TcpFastTmrFlag = 0;
 volatile int TcpSlowTmrFlag = 0;
-volatile int TxPerfConnMonCntr = 0;
 
 #if LWIP_DHCP==1
 	volatile int dhcp_timoutcntr = 24;
@@ -19,8 +18,6 @@ void timer_callback()
 	odd = !odd;
 	if (odd)
 	{
-		TxPerfConnMonCntr++;
-
 		#if LWIP_DHCP==1
 			dhcp_timer++;
 			dhcp_timoutcntr--;
