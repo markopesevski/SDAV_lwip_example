@@ -1,4 +1,3 @@
-#include "lwip/sys.h"
 #include "prot_malloc.h"
 
 void *prot_mem_malloc(mem_size_t n)

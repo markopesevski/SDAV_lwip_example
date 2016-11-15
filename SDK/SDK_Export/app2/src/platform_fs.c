@@ -1,5 +1,4 @@
-#include "mfs_config.h"
-#include "xil_printf.h"
+#include "platform_fs.h"
 
 int platform_init_fs()
 {

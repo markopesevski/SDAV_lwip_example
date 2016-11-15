@@ -2,7 +2,6 @@
 #include "xparameters.h"
 #include "netif/xadapter.h"
 #include "platform.h"
-#include "platform_config.h"
 #include "xil_printf.h"
 #include "lwipopts.h"
 #include "webserver.h"
@@ -132,7 +131,7 @@ int main(void)
 		print_ip_settings(&(netif->ip_addr), &(netif->netmask), &(netif->gw));
 	#endif
 
-	/* start the application (web server, rxtest, txtest, etc..) */
+	/* start the application (web server) */
 	xil_printf("Starting web app\r\n");
 	start_web_application();
 	xil_printf("Web app started\r\n");

@@ -1,35 +1,19 @@
-#include "arch/cc.h"
-#include "lwipopts.h"
 #include "platform.h"
-#include "platform_config.h"
-#include "xenv_standalone.h"
-#include "xparameters.h"
-#include "xintc.h"
-#include "xil_exception.h"
-#include "mb_interface.h"
-#include "xtmrctr_l.h"
-#include "lwip/tcp.h"
-
-#if LWIP_DHCP==1
-	void dhcp_fine_tmr();
-	void dhcp_coarse_tmr();
-
-	volatile int dhcp_timoutcntr = 24;
-#endif
-
-int platform_init_fs();
 
 volatile int TcpFastTmrFlag = 0;
 volatile int TcpSlowTmrFlag = 0;
 volatile int TxPerfConnMonCntr = 0;
 
+#if LWIP_DHCP==1
+	volatile int dhcp_timoutcntr = 24;
+#endif //LWIP_DHCP
 
 void timer_callback()
 {
 	static int odd = 1;
 	#if LWIP_DHCP==1
 		static int dhcp_timer = 0;
-	#endif
+	#endif //LWIP_DHCP
 	TcpFastTmrFlag = 1;
 
 	odd = !odd;
@@ -40,7 +24,7 @@ void timer_callback()
 		#if LWIP_DHCP==1
 			dhcp_timer++;
 			dhcp_timoutcntr--;
-		#endif
+		#endif //LWIP_DHCP
 
 		TcpSlowTmrFlag = 1;
 
@@ -51,7 +35,7 @@ void timer_callback()
 				dhcp_coarse_tmr();
 				dhcp_timer = 0;
 			}
-		#endif
+		#endif //LWIP_DHCP
 	}
 }
 
@@ -116,8 +100,7 @@ void enable_caches()
 	microblaze_enable_dcache();
 }
 
-void
-disable_caches()
+void disable_caches()
 {
 	microblaze_invalidate_dcache();
 	microblaze_disable_dcache();

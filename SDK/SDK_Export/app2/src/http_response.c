@@ -1,8 +1,4 @@
-#include <string.h>
-#include "mfs_config.h"
-#include "lwip/inet.h"
-#include "webserver.h"
-#include "xil_printf.h"
+#include "http_response.h"
 
 char *notfound_header =
 	"<html> \
@@ -20,11 +16,6 @@ char *notfound_footer =
 	"</div> \
 	</body> \
 	</html>";
-
-int generate_http_header(char *buf, char *fext, int fsize);
-int toggle_leds();
-unsigned int get_switch_state();
-int mfs_file_read(int fd, char *buf, int buflen);
 
 /* dynamically generate 404 response:
  *	this inserts the original request string in betwween the notfound_header & footer strings
@@ -206,13 +197,6 @@ int do_http_get(struct tcp_pcb *pcb, char *req, int rlen)
 	mfs_file_close(fd);
 	return 0;
 }
-
-enum http_req_type
-{
-	HTTP_GET,
-	HTTP_POST,
-	HTTP_UNKNOWN
-};
 
 enum http_req_type decode_http_request(char *req, int l)
 {

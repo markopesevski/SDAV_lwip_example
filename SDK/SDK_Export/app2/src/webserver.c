@@ -16,15 +16,7 @@
  *
  */
 
-#include <stdio.h>
-#include <string.h>
-#include "lwip/err.h"
-#include "lwip/tcp.h"
 #include "webserver.h"
-#include "xilmfs.h"
-#ifndef __PPC__
-	#include "xil_printf.h"
-#endif
 
 /* Comment the following line, if you want a smaller and faster webserver */
 /* which will be silent */
@@ -34,8 +26,6 @@
 static int g_webserver_debug = 0;
 static unsigned http_port = 80;
 static unsigned http_server_running = 0;
-
-void platform_init_gpios();
 
 int transfer_web_data()
 {
@@ -81,7 +71,7 @@ err_t http_sent_callback(void *arg, struct tcp_pcb *tpcb, u16_t len)
 
 		#ifdef VERBOSE
 			xil_printf("attempting to read %d bytes, left = %d bytes\r\n", BUFSIZE, a->fsize);
-		#endif
+		#endif //VERBOSE
 
 		n = mfs_file_read(a->fd, buf, BUFSIZE);
 		tcp_write(tpcb, buf, n, 1);
@@ -122,8 +112,8 @@ err_t http_recv_callback(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t 
 	/* acknowledge that we've read the payload */
 	tcp_recved(tpcb, p->len);
 
-	/* read and decipher the request */
-	/* this function takes care of generating a request, sending it,
+	/* read and decipher the request
+	 * this function takes care of generating a request, sending it,
 	 *	and closing the connection if all data can been sent. If
 	 *	not, then it sets up the appropriate arguments to the sent
 	 *	callback handler.
@@ -136,7 +126,7 @@ err_t http_recv_callback(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t 
 	return ERR_OK;
 }
 
-static err_t http_accept_callback(void *arg, struct tcp_pcb *newpcb, err_t err)
+err_t http_accept_callback(void *arg, struct tcp_pcb *newpcb, err_t err)
 {
 	/* keep a count of connection # */
 	tcp_arg(newpcb, (void*)palloc_arg());

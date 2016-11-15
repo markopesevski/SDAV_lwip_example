@@ -1,8 +1,4 @@
-#include <string.h>
-#include "lwip/sys.h"
-#include "mfs_config.h"
-#include "webserver.h"
-#include "platform_fs.h"
+#include "web_utils.h"
 
 void print_http_request(char *buf, int n)
 {
