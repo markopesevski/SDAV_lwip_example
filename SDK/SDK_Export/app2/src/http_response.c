@@ -203,6 +203,9 @@ enum http_req_type decode_http_request(char *req, int l)
 	char *get_str = "GET";
 	char *post_str = "POST";
 
+	xil_printf("req: %s\r\n", req);
+	dump_payload(req, l);
+
 	if (!strncmp(req, get_str, strlen(get_str)))
 	{
 		return HTTP_GET;

@@ -40,7 +40,7 @@ err_t http_sent_callback(void *arg, struct tcp_pcb *tpcb, u16_t len)
 
 	if (g_webserver_debug)
 	{
-		xil_printf("%d (%d): S%d..\r\n", a?a->count:0, tpcb->state, len);
+		xil_printf("TX\targs: %d\tstate: %d\tlen: %d\r\n", a?a->count:0, tpcb->state, len);
 	}
 
 	if (tpcb->state > ESTABLISHED)
@@ -91,10 +91,18 @@ err_t http_sent_callback(void *arg, struct tcp_pcb *tpcb, u16_t len)
 err_t http_recv_callback(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err)
 {
 	http_arg *a = (http_arg*)arg;
+	struct pbuf * actual = p;
 
 	if (g_webserver_debug)
 	{
-		xil_printf("%d (%d): R%d %d..\r\n", a?a->count:0, tpcb->state, p->len, p->tot_len);
+		xil_printf("RX\targs: %d\tstate: %d\tpay-len: %d\ttot-len: %d\r\n", a?a->count:0, tpcb->state, p->len, p->tot_len);
+		xil_printf("%s\r\n", actual->payload);
+		actual = actual->next;
+		while(actual->next != NULL)
+		{
+			xil_printf("%s\r\n", actual->payload);
+			actual = actual->next;
+		}
 	}
 
 	/* do not read the packet if we are not in ESTABLISHED state */
