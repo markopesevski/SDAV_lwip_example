@@ -256,10 +256,13 @@ void dump_payload(char *p, int len)
 int generate_response(struct tcp_pcb *pcb, char *http_req, int http_req_len)
 {
     u8 payloadLength = http_req[1] & 0x7F;
-    u8 key[4] = {'\0'};
-    u8 data[128] = {'\0'};
+    u8 maskingKey[4] = {'\0'};
+    u8 * originalData = (u8 *) &http_req[6];
+    u8 transformedData[128] = {'\0'};
 	enum http_req_type request_type = decode_http_request(http_req, http_req_len);
 	int i = 0;
+	err_t err;
+	u8 txBuf[127] = {'\0'};
 
 	switch(request_type)
 	{
@@ -278,16 +281,25 @@ int generate_response(struct tcp_pcb *pcb, char *http_req, int http_req_len)
 			//	xil_printf("%d\r\n", http_req[i]);
 			//}
 			//xil_printf("\r\n:XR\r\n");
-
-		    memcpy(key, &http_req[2], 4);
-
-		    WSMaskUnmaskData((u8 *) &http_req[6], payloadLength, key, data);
+			memcpy(maskingKey, &http_req[2], 4);
+		    WSMaskUnmaskData(originalData, payloadLength, maskingKey, transformedData);
 			xil_printf("RX:\r\n");
 			for(i = 0; i < payloadLength; i++)
 			{
-				xil_printf("%c", data[i]);
+				xil_printf("%c", transformedData[i]);
 			}
 			xil_printf("\r\n:XR\r\n");
+
+			memcpy(&txBuf[2], "Hello Chrome! This is Spartan6 calling\r\n", 40);
+			txBuf[0] = 0x81;
+			txBuf[1] = 40;
+			if ((err = tcp_write(pcb, txBuf, 42, 3)) != ERR_OK)
+			{
+				xil_printf("error (%d) writing http header to socket\r\n", err);
+				xil_printf("attempted to write #bytes = %d, tcp_sndbuf = %d\r\n", 40, tcp_sndbuf(pcb));
+				xil_printf("http header = %s\r\n", txBuf);
+				return -1;
+			}
 			return 0;
 	}
 }
