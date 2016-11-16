@@ -217,6 +217,7 @@ enum http_req_type decode_http_request(char *req, int l)
 	char *get_str = "GET";
 	char *post_str = "POST";
 
+
 	if(!strncmp(req, new_ws_str, strlen(new_ws_str)))
 	{
 		return HTTP_NEW_WS;
@@ -225,8 +226,7 @@ enum http_req_type decode_http_request(char *req, int l)
 	{
 		return HTTP_GET;
 	}
-
-	if (!strncmp(req, post_str, strlen(post_str)))
+	else if (!strncmp(req, post_str, strlen(post_str)))
 	{
 		return HTTP_POST;
 	}
@@ -255,6 +255,9 @@ void dump_payload(char *p, int len)
  * this assumes that tcp_sndbuf is high enough to send atleast 1 packet */
 int generate_response(struct tcp_pcb *pcb, char *http_req, int http_req_len)
 {
+    u8 payloadLength = http_req[1] & 0x7F;
+    u8 key[4] = {'\0'};
+    u8 data[128] = {'\0'};
 	enum http_req_type request_type = decode_http_request(http_req, http_req_len);
 	int i = 0;
 
@@ -270,11 +273,36 @@ int generate_response(struct tcp_pcb *pcb, char *http_req, int http_req_len)
 			//dump_payload(http_req, http_req_len);
 			//return do_404(pcb, http_req, http_req_len);
 			xil_printf("RX:\r\n");
-			for(i = 0; i < http_req_len; i++)
+			//for(i = 0; i < http_req_len; i++)
+			//{
+			//	xil_printf("%d\r\n", http_req[i]);
+			//}
+			//xil_printf("\r\n:XR\r\n");
+
+		    memcpy(key, &http_req[2], 4);
+
+		    WSMaskUnmaskData((u8 *) &http_req[6], payloadLength, key, data);
+			xil_printf("RX:\r\n");
+			for(i = 0; i < payloadLength; i++)
 			{
-				xil_printf("0x%x ", http_req[i]);
+				xil_printf("%c", data[i]);
 			}
 			xil_printf("\r\n:XR\r\n");
 			return 0;
+	}
+}
+
+void WSMaskUnmaskData(u8 * originalData, u8 len, u8 * maskingKey, u8 * transformedData)
+{
+	/*
+		j                   = i MOD 4
+		transformed-octet-i = original-octet-i XOR masking-key-octet-j
+	*/
+	int i = 0;
+	int j = 0;
+	for (i = 0; i < len; i++)
+	{
+		j = i % 4;
+		transformedData[i] = originalData[i] ^ maskingKey[j];
 	}
 }

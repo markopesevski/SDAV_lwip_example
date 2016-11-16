@@ -25,5 +25,6 @@
 	enum http_req_type decode_http_request(char *req, int l);
 	void dump_payload(char *p, int len);
 	int generate_response(struct tcp_pcb *pcb, char *http_req, int http_req_len);
+	void WSMaskUnmaskData(u8 * data, u8 len, u8 * key, u8 * transformed);
 
 #endif //__HTTP_RESPONSE_H_
