@@ -189,7 +189,12 @@ int generate_ws_upgrade_header(char * buf, char * req, int reqlen)
 	memcpy(&key[j-i], "258EAFA5-E914-47DA-95CA-C5AB0DC85B11", 36);
 	xil_printf("key: %s\r\n", key);
 	mbedtls_sha1(&key[0], (j-i)+36, &key_sha1[0]);
-	xil_printf("sha1: %s\r\n", key_sha1);
+	xil_printf("sha1: ", key_sha1);
+	for (i = 0; i < 20; i++)
+	{
+		xil_printf("%02x", key_sha1[i]);
+	}
+	xil_printf("\r\n");
 	Base64encode((char *)&key_sha1_base64[0], (char *)&key_sha1[0], strlen((char *)key_sha1));
 	xil_printf("base64: %s\r\n", key_sha1_base64);
 	strcpy(buf, "HTTP/1.1 101 WebSocket Protocol Handshake\r\n");
