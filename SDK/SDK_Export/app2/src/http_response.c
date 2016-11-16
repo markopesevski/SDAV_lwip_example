@@ -265,8 +265,10 @@ int generate_response(struct tcp_pcb *pcb, char *http_req, int http_req_len)
 		case HTTP_POST:
 			return do_http_post(pcb, http_req, http_req_len);
 		default:
-			xil_printf("request_type != GET|POST\r\n");
-			dump_payload(http_req, http_req_len);
-			return do_404(pcb, http_req, http_req_len);
+			//xil_printf("request_type != GET|POST\r\n");
+			//dump_payload(http_req, http_req_len);
+			//return do_404(pcb, http_req, http_req_len);
+			xil_printf("RX:\r\n%s\r\n:XR\r\n", http_req);
+			return 0;
 	}
 }

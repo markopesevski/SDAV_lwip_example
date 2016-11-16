@@ -186,7 +186,7 @@ int generate_ws_upgrade_header(char * buf, char * req, int reqlen)
 	mbedtls_sha1(&key[0], (j-i)+36, &key_sha1[0]);
 	Base64encode((char *)&key_sha1_base64[0], (char *)&key_sha1[0], strlen((char *)key_sha1));
 
-	strcpy(buf, "HTTP/1.1 101 WebSocket Protocol Handshake\r\n");
+	strcpy(buf, "HTTP/1.1 101 Switching Protocols\r\n");
 	strcat(buf, "Connection: Upgrade\r\n");
 	strcat(buf, "Upgrade: WebSocket\r\n");
 	strcat(buf, "Sec-WebSocket-Accept: ");
