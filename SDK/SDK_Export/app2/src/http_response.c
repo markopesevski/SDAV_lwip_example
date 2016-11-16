@@ -256,6 +256,7 @@ void dump_payload(char *p, int len)
 int generate_response(struct tcp_pcb *pcb, char *http_req, int http_req_len)
 {
 	enum http_req_type request_type = decode_http_request(http_req, http_req_len);
+	int i = 0;
 
 	switch(request_type)
 	{
@@ -268,7 +269,12 @@ int generate_response(struct tcp_pcb *pcb, char *http_req, int http_req_len)
 			//xil_printf("request_type != GET|POST\r\n");
 			//dump_payload(http_req, http_req_len);
 			//return do_404(pcb, http_req, http_req_len);
-			xil_printf("RX:\r\n%s\r\n:XR\r\n", http_req);
+			xil_printf("RX:\r\n");
+			for(i = 0; i < http_req_len; i++)
+			{
+				xil_printf("0x%x ", http_req[i]);
+			}
+			xil_printf("\r\n:XR\r\n");
 			return 0;
 	}
 }
