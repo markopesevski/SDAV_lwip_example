@@ -5,11 +5,13 @@
 	#include "lwip/inet.h"
 	#include "webserver.h"
 	#include "xil_printf.h"
+	#include "web_utils.h"
 
 	enum http_req_type
 	{
 		HTTP_GET,
 		HTTP_POST,
+		HTTP_NEW_WS,
 		HTTP_UNKNOWN
 	};
 

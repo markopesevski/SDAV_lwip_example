@@ -33,8 +33,7 @@
                     return;
                 }
                 // Create a new instance of the websocket
-                document.URL
-                webSocket = new WebSocket("ws://"+ new URL(document.URL).hostname +":80/echo");
+                webSocket = new WebSocket("ws://"+ new URL(document.URL).hostname +":80/new_ws");
 
                 //Binds functions to the listeners for the websocket.
                 webSocket.onopen = function(event)

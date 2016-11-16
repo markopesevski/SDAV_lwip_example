@@ -155,6 +155,52 @@ int generate_http_header(char *buf, char *fext, int fsize)
 	return strlen(buf);
 }
 
+int generate_ws_upgrade_header(char * buf, char * req, int reqlen)
+{
+	unsigned char key[128] = {'\0'};
+	unsigned char key_sha1[128] = {'\0'};
+	char key_sha1_base64[128] = {'\0'};
+	u16 i = 0;
+	u16 j = 0;
+
+	//xil_printf("req:%s:req\r\n",req);
+
+	for(i = 0; i < reqlen-19; i++)
+	{
+		if(!strncmp(&req[i], "Sec-WebSocket-Key: ", 19))
+		{
+			break;
+		}
+	}
+
+	i = i + 19;
+
+	for(j = i; j < reqlen; j++)
+	{
+		if(req[j] == '\r' || req[j] == '\n')
+		{
+			break;
+		}
+	}
+	//xil_printf("req(%d): %c\r\n", i, req[i]);
+	//xil_printf("req(%d): %c\r\n", j, req[i+j]);
+
+	memcpy(key, &req[i], j-i);
+	memcpy(&key[j-i], "258EAFA5-E914-47DA-95CA-C5AB0DC85B11", 36);
+	xil_printf("key: %s\r\n", key);
+	mbedtls_sha1(&key[0], (j-i)+36, &key_sha1[0]);
+	xil_printf("sha1: %s\r\n", key_sha1);
+	Base64encode((char *)&key_sha1_base64[0], (char *)&key_sha1[0], strlen((char *)key_sha1));
+	xil_printf("base64: %s\r\n", key_sha1_base64);
+	strcpy(buf, "HTTP/1.1 101 WebSocket Protocol Handshake\r\n");
+	strcat(buf, "Connection: Upgrade\r\n");
+	strcat(buf, "Upgrade: WebSocket\r\n");
+	strcat(buf, "Sec-WebSocket-Accept: %\r\n");
+	strcat(buf, "\r\n");
+
+	return strlen(buf);
+}
+
 static int p_arg_count = 0;
 static http_arg httpArgArray[1000];
 static int httpArgArrayIndex = 0;

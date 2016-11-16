@@ -10,6 +10,8 @@
 #include "lwip/tcp.h"
 #include "lwip/tcp_impl.h"
 #include "web_utils.h"
+#include "sha1.h"
+#include "base64.h"
 
 #define ETHERNET_MAC_ADDRESS	{0x00, 0x0a, 0x35, 0x00, 0x01, 0x02}
 

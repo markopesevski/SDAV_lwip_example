@@ -23,7 +23,7 @@
 #define VERBOSE
 
 /* static variables controlling debug printf's in this file */
-static int g_webserver_debug = 1;
+static int g_webserver_debug = 0;
 static unsigned http_port = 80;
 static unsigned http_server_running = 0;
 
@@ -96,13 +96,6 @@ err_t http_recv_callback(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t 
 	if (g_webserver_debug)
 	{
 		xil_printf("RX\targs: %d\tstate: %d\tpay-len: %d\ttot-len: %d\r\n", a?a->count:0, tpcb->state, p->len, p->tot_len);
-		xil_printf("%s\r\n", actual->payload);
-		actual = actual->next;
-		while(actual->next != NULL)
-		{
-			xil_printf("%s\r\n", actual->payload);
-			actual = actual->next;
-		}
 	}
 
 	/* do not read the packet if we are not in ESTABLISHED state */

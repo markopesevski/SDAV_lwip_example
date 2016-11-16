@@ -108,6 +108,20 @@ int do_http_get(struct tcp_pcb *pcb, char *req, int rlen)
 	/* determine file name */
 	extract_file_name(filename, req, rlen, MAX_FILENAME);
 
+	if(!strncmp(filename, "new_ws", strlen("new_ws")))
+	{
+		hlen = generate_ws_upgrade_header((char *)buf, req, rlen);
+		xil_printf("WS Header response%s\r\n", (char*) buf);
+		if ((err = tcp_write(pcb, buf, hlen, 3)) != ERR_OK)
+		{
+			xil_printf("error (%d) writing http header to socket\r\n", err);
+			xil_printf("attempted to write #bytes = %d, tcp_sndbuf = %d\r\n", hlen, tcp_sndbuf(pcb));
+			xil_printf("http header = %s\r\n", buf);
+			return -1;
+		}
+		return 0;
+	}
+
 	/* respond with 404 if not present */
 	if (mfs_exists_file(filename) != 1)
 	{
@@ -200,13 +214,15 @@ int do_http_get(struct tcp_pcb *pcb, char *req, int rlen)
 
 enum http_req_type decode_http_request(char *req, int l)
 {
+	char *new_ws_str = "GET /new_ws";
 	char *get_str = "GET";
 	char *post_str = "POST";
 
-	xil_printf("req: %s\r\n", req);
-	dump_payload(req, l);
-
-	if (!strncmp(req, get_str, strlen(get_str)))
+	if(!strncmp(req, new_ws_str, strlen(new_ws_str)))
+	{
+		return HTTP_NEW_WS;
+	}
+	else if (!strncmp(req, get_str, strlen(get_str)))
 	{
 		return HTTP_GET;
 	}
@@ -244,6 +260,7 @@ int generate_response(struct tcp_pcb *pcb, char *http_req, int http_req_len)
 
 	switch(request_type)
 	{
+		case HTTP_NEW_WS:
 		case HTTP_GET:
 			return do_http_get(pcb, http_req, http_req_len);
 		case HTTP_POST:
