@@ -30,7 +30,7 @@
                 if(webSocket !== undefined && webSocket.readyState !== WebSocket.CLOSED)
                 {
                    writeResponse("WebSocket is already opened.");
-                    return;
+                   return;
                 }
                 // Create a new instance of the websocket
                 webSocket = new WebSocket("ws://"+ new URL(document.URL).hostname +":80/new_ws");
@@ -46,6 +46,7 @@
                         return;
                     }
 
+                   	writeResponse("WebSocket open");
                     writeResponse(event.data);
                 };
 

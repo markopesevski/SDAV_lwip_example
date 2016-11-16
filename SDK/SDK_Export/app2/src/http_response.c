@@ -111,7 +111,6 @@ int do_http_get(struct tcp_pcb *pcb, char *req, int rlen)
 	if(!strncmp(filename, "new_ws", strlen("new_ws")))
 	{
 		hlen = generate_ws_upgrade_header((char *)buf, req, rlen);
-		xil_printf("WS Header response%s\r\n", (char*) buf);
 		if ((err = tcp_write(pcb, buf, hlen, 3)) != ERR_OK)
 		{
 			xil_printf("error (%d) writing http header to socket\r\n", err);
