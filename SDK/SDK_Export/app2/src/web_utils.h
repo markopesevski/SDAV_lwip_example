@@ -1,13 +1,15 @@
 #ifndef __WEB_UTILS_H_
 #define __WEB_UTILS_H_
 
-	#include <string.h>
+	#include "string.h"
 	#include "lwip/sys.h"
 	#include "mfs_config.h"
 	#include "webserver.h"
 	#include "platform_fs.h"
 	#include "sha1.h"
 	#include "base64.h"
+	#include "stdlib.h"
+	#include "stdio.h"
 
 	void print_http_request(char *buf, int n);
 	int is_cmd_led(char *buf);

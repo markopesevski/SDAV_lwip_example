@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include "stdio.h"
 #include "xparameters.h"
 #include "netif/xadapter.h"
 #include "platform.h"
@@ -12,6 +12,8 @@
 #include "web_utils.h"
 #include "sha1.h"
 #include "base64.h"
+#include "xspi.h"
+#include "http_response.h"
 
 #define ETHERNET_MAC_ADDRESS	{0x00, 0x0a, 0x35, 0x00, 0x01, 0x02}
 
@@ -21,11 +23,15 @@
 
 extern volatile int TcpFastTmrFlag;
 extern volatile int TcpSlowTmrFlag;
+extern u8 WS_ok;
 
 /* the mac address of the board. this should be unique per board */
 unsigned char mac_ethernet_address[] = ETHERNET_MAC_ADDRESS;
 struct netif *netif, server_netif;
 struct ip_addr ipaddr, netmask, gw; // gw = gateway
+XSpi				SPI_instance;
+float spi_ADC_reading = 0;
+u8 spi_ok = 0;
 
 int main(void)
 {
@@ -38,6 +44,16 @@ int main(void)
 	{
 		xil_printf("ERROR initializing platform.\r\n");
 		return -1;
+	}
+
+	if (init_spi(&SPI_instance) < 0)
+	{
+		xil_printf("ERROR initializing SPI.\r\n");
+		return -1;
+	}
+	else
+	{
+		spi_ok = 1;
 	}
 
 	xil_printf("\r\n");
@@ -135,6 +151,10 @@ int main(void)
 		{
 			tcp_fasttmr();
 			TcpFastTmrFlag = 0;
+			if(spi_ok > 0 && WS_ok > 0)
+			{
+				updateWSWithWaterLevel(read_spi(&SPI_instance));
+			}
 		}
 		if (TcpSlowTmrFlag)
 		{

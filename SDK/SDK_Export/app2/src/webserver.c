@@ -91,7 +91,6 @@ err_t http_sent_callback(void *arg, struct tcp_pcb *tpcb, u16_t len)
 err_t http_recv_callback(void *arg, struct tcp_pcb *tpcb, struct pbuf *p, err_t err)
 {
 	http_arg *a = (http_arg*)arg;
-	struct pbuf * actual = p;
 
 	if (g_webserver_debug)
 	{

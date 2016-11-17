@@ -123,3 +123,34 @@ void cleanup_platform()
 {
 	disable_caches();
 }
+
+int init_spi(XSpi * spi)
+{
+	XSpi_Initialize(spi, XPAR_SPI_DEVICE_ID);
+	XSpi_SetOptions(spi, XSP_MANUAL_SSELECT_OPTION | XSP_MASTER_OPTION);
+	XSpi_Start(spi);
+	XSpi_IntrGlobalDisable(spi);
+	XSpi_SetSlaveSelect(spi, 1);
+	return 0;
+}
+
+u32 read_spi(XSpi * spi)
+{
+	u8 dataTx[2] = {0x68, 0};
+	u8 dataRx[2] = {0};
+	int ret_value = 0;
+
+	XSpi_Transfer(spi, dataTx, dataRx, 2);
+	ret_value = ((dataRx[0] << 8 | dataRx[1]) * VDD_ADC)/1024;
+	if(ret_value > 1024)
+	{
+		ret_value = 1024;
+	}
+	else if(ret_value < 0)
+	{
+		ret_value = 0;
+	}
+
+	return (u32) ret_value;
+}
+

@@ -1,5 +1,8 @@
 #include "http_response.h"
 
+struct tcp_pcb * WSpcb;
+u8 WS_ok = 0;
+
 char *notfound_header =
 	"<html> \
 	<head> \
@@ -53,38 +56,8 @@ int do_http_post(struct tcp_pcb *pcb, char *req, int rlen)
 {
 	int BUFSIZE = 1024;
 	unsigned char buf[BUFSIZE];
-	int len, n;
-	char *p;
 
-//	if (is_cmd_led(req))
-//	{
-//		n = toggle_leds();
-//		len = generate_http_header((char *)buf, "js", 1);
-//		p = (char *)buf + len;
-//		*p++ = n?'1':'0';
-//		*p = 0;
-//		len++;
-//		xil_printf("http POST: ledstatus: %x\r\n", n);
-//	}
-//	else if (is_cmd_switch(req))
-//	{
-//		unsigned s = get_switch_state();
-//		int n_switches = 4;
-//
-//		xil_printf("http POST: switch state: %x\r\n", s);
-//		len = generate_http_header((char *)buf, "js", n_switches);
-//		p = (char *)buf + len;
-//		for (n = 0; n < n_switches; n++, p++)
-//		{
-//			*p = '0' + (s & 0x1);
-//			s >>= 1;
-//		}
-//
-//		*p = 0;
-//		len += n_switches;
-//	}
-
-	if (tcp_write(pcb, buf, len, 1) != ERR_OK)
+	if (tcp_write(pcb, buf, rlen, 1) != ERR_OK)
 	{
 		xil_printf("error writing http POST response to socket\n\r");
 		xil_printf("http header = %s\r\n", buf);
@@ -111,6 +84,8 @@ int do_http_get(struct tcp_pcb *pcb, char *req, int rlen)
 	if(!strncmp(filename, "new_ws", strlen("new_ws")))
 	{
 		hlen = generate_ws_upgrade_header((char *)buf, req, rlen);
+		WSpcb = pcb;
+		WS_ok = 1;
 		if ((err = tcp_write(pcb, buf, hlen, 3)) != ERR_OK)
 		{
 			xil_printf("error (%d) writing http header to socket\r\n", err);
@@ -260,9 +235,6 @@ int generate_response(struct tcp_pcb *pcb, char *http_req, int http_req_len)
     u8 * originalData = (u8 *) &http_req[6];
     u8 transformedData[128] = {'\0'};
 	enum http_req_type request_type = decode_http_request(http_req, http_req_len);
-	int i = 0;
-	err_t err;
-	u8 txBuf[127] = {'\0'};
 
 	switch(request_type)
 	{
@@ -272,34 +244,8 @@ int generate_response(struct tcp_pcb *pcb, char *http_req, int http_req_len)
 		case HTTP_POST:
 			return do_http_post(pcb, http_req, http_req_len);
 		default:
-			//xil_printf("request_type != GET|POST\r\n");
-			//dump_payload(http_req, http_req_len);
-			//return do_404(pcb, http_req, http_req_len);
-			xil_printf("RX:\r\n");
-			//for(i = 0; i < http_req_len; i++)
-			//{
-			//	xil_printf("%d\r\n", http_req[i]);
-			//}
-			//xil_printf("\r\n:XR\r\n");
 			memcpy(maskingKey, &http_req[2], 4);
 		    WSMaskUnmaskData(originalData, payloadLength, maskingKey, transformedData);
-			xil_printf("RX:\r\n");
-			for(i = 0; i < payloadLength; i++)
-			{
-				xil_printf("%c", transformedData[i]);
-			}
-			xil_printf("\r\n:XR\r\n");
-
-			memcpy(&txBuf[2], "Hello Chrome! This is Spartan6 calling\r\n", 40);
-			txBuf[0] = 0x81;
-			txBuf[1] = 40;
-			if ((err = tcp_write(pcb, txBuf, 42, 3)) != ERR_OK)
-			{
-				xil_printf("error (%d) writing http header to socket\r\n", err);
-				xil_printf("attempted to write #bytes = %d, tcp_sndbuf = %d\r\n", 40, tcp_sndbuf(pcb));
-				xil_printf("http header = %s\r\n", txBuf);
-				return -1;
-			}
 			return 0;
 	}
 }
@@ -311,10 +257,43 @@ void WSMaskUnmaskData(u8 * originalData, u8 len, u8 * maskingKey, u8 * transform
 		transformed-octet-i = original-octet-i XOR masking-key-octet-j
 	*/
 	int i = 0;
-	int j = 0;
 	for (i = 0; i < len; i++)
 	{
-		j = i % 4;
-		transformedData[i] = originalData[i] ^ maskingKey[j];
+		transformedData[i] = originalData[i] ^ maskingKey[i % 4];
+	}
+}
+
+int updateWSWithWaterLevel(u32 level)
+{
+	u8 txBuff[127] = {'\0'};
+	err_t err;
+	myItoA((int) level, &txBuff[2]);
+	txBuff[0] = 0x81;
+	txBuff[1] = strlen((char *) txBuff);
+	//if ((err = tcp_write(WSpcb, txBuff, strlen((char *) txBuff), 3)) != ERR_OK)
+	//{
+	//	xil_printf("error (%d) writing http header to socket\r\n", err);
+	//	xil_printf("attempted to write #bytes = %d, tcp_sndbuf = %d\r\n", strlen((char *) txBuff), tcp_sndbuf(WSpcb));
+	//	xil_printf("http header = %s\r\n", txBuff);
+	//	return -1;
+	//}
+	xil_printf("%d\r", level);
+	return strlen((char *) txBuff);
+}
+
+void myItoA(int value, u8 * buffer)
+{
+	int i = 0;
+	buffer[0] = ((value - (value % 1000))/1000) + '0';
+	buffer[1] = (((value % 1000) - (value % 100))/100) + '0';
+	buffer[2] = (((value % 100) - (value % 10))/10) + '0';
+	buffer[3] = (value % 10) + '0';
+
+	for(i = 0; i < 4; i++)
+	{
+		if(buffer[0] == '0')
+		{
+			memcpy(&buffer[0], &buffer[1], 3-i);
+		}
 	}
 }

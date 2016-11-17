@@ -10,6 +10,10 @@
 	#include "mb_interface.h"
 	#include "xtmrctr_l.h"
 	#include "lwip/tcp.h"
+	#include "xspi.h"
+
+	#define VDD_ADC 3.1
+
 	#define PLATFORM_EMAC_BASEADDR XPAR_EMACLITE_0_BASEADDR
 	#define PLATFORM_TIMER_BASEADDR XPAR_TMRCTR_0_BASEADDR
 	#define PLATFORM_TIMER_INTERRUPT_INTR XPAR_INTC_0_TMRCTR_0_VEC_ID
@@ -28,6 +32,8 @@
 	void disable_caches();
 	int init_platform();
 	void cleanup_platform();
+	int init_spi(XSpi * spi);
+	u32 read_spi(XSpi * spi);
 
 	#if LWIP_DHCP==1
 		void dhcp_fine_tmr();
