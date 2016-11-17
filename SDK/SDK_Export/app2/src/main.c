@@ -155,6 +155,10 @@ int main(void)
 		{
 			tcp_fasttmr();
 			TcpFastTmrFlag = 0;
+			if(WS_ok > 0)
+			{
+				updateWSWithWaterLevel(WSpcb, 100);
+			}
 		}
 		if (TcpSlowTmrFlag)
 		{
