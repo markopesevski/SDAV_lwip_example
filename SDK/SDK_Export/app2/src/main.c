@@ -16,7 +16,7 @@
 #include "http_response.h"
 
 #if LWIP_TCP_KEEPALIVE == 0
-	#define LWIP_TCP_KEEPALIVE 1
+	//#define LWIP_TCP_KEEPALIVE 1
 #endif
 #define ETHERNET_MAC_ADDRESS	{0x00, 0x0a, 0x35, 0x00, 0x01, 0x02}
 
@@ -157,7 +157,8 @@ int main(void)
 			TcpFastTmrFlag = 0;
 			if(WS_ok > 0)
 			{
-				updateWSWithWaterLevel(WSpcb, 100);
+		    	spi_ADC_reading = read_spi(&SPI_instance);
+				updateWSWithWaterLevel(WSpcb, spi_ADC_reading);
 			}
 		}
 		if (TcpSlowTmrFlag)
@@ -166,7 +167,6 @@ int main(void)
 			TcpSlowTmrFlag = 0;
 		}
 
-    	spi_ADC_reading = read_spi(&SPI_instance);
 		xemacif_input(netif);
 		transfer_web_data();
 	}

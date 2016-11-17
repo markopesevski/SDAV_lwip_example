@@ -12,7 +12,7 @@
 	#include "lwip/tcp.h"
 	#include "xspi.h"
 
-	#define VDD_ADC 3.1
+	#define VDD_ADC 3.3
 
 	#define PLATFORM_EMAC_BASEADDR XPAR_EMACLITE_0_BASEADDR
 	#define PLATFORM_TIMER_BASEADDR XPAR_TMRCTR_0_BASEADDR
