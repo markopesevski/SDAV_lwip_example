@@ -26,6 +26,8 @@
 static int g_webserver_debug = 0;
 static unsigned http_port = 80;
 static unsigned http_server_running = 0;
+extern u8 WS_ok;
+extern struct tcp_pcb * WSpcb;
 
 int transfer_web_data()
 {
@@ -41,6 +43,11 @@ err_t http_sent_callback(void *arg, struct tcp_pcb *tpcb, u16_t len)
 	if (g_webserver_debug)
 	{
 		xil_printf("TX\targs: %d\tstate: %d\tlen: %d\r\n", a?a->count:0, tpcb->state, len);
+	}
+
+	if(WS_ok && tpcb == WSpcb)
+	{
+		return ERR_OK;
 	}
 
 	if (tpcb->state > ESTABLISHED)

@@ -15,6 +15,9 @@
 #include "xspi.h"
 #include "http_response.h"
 
+#if LWIP_TCP_KEEPALIVE == 0
+	#define LWIP_TCP_KEEPALIVE 1
+#endif
 #define ETHERNET_MAC_ADDRESS	{0x00, 0x0a, 0x35, 0x00, 0x01, 0x02}
 
 #if LWIP_DHCP==1
@@ -24,13 +27,14 @@
 extern volatile int TcpFastTmrFlag;
 extern volatile int TcpSlowTmrFlag;
 extern u8 WS_ok;
+extern struct tcp_pcb * WSpcb;
 
 /* the mac address of the board. this should be unique per board */
 unsigned char mac_ethernet_address[] = ETHERNET_MAC_ADDRESS;
 struct netif *netif, server_netif;
 struct ip_addr ipaddr, netmask, gw; // gw = gateway
 XSpi				SPI_instance;
-float spi_ADC_reading = 0;
+u32 spi_ADC_reading = 0;
 u8 spi_ok = 0;
 
 int main(void)
@@ -151,16 +155,14 @@ int main(void)
 		{
 			tcp_fasttmr();
 			TcpFastTmrFlag = 0;
-			if(spi_ok > 0 && WS_ok > 0)
-			{
-				updateWSWithWaterLevel(read_spi(&SPI_instance));
-			}
 		}
 		if (TcpSlowTmrFlag)
 		{
 			tcp_slowtmr();
 			TcpSlowTmrFlag = 0;
 		}
+
+    	spi_ADC_reading = read_spi(&SPI_instance);
 		xemacif_input(netif);
 		transfer_web_data();
 	}

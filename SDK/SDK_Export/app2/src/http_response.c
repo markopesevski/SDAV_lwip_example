@@ -2,6 +2,7 @@
 
 struct tcp_pcb * WSpcb;
 u8 WS_ok = 0;
+extern spi_ADC_reading;
 
 char *notfound_header =
 	"<html> \
@@ -83,16 +84,30 @@ int do_http_get(struct tcp_pcb *pcb, char *req, int rlen)
 
 	if(!strncmp(filename, "new_ws", strlen("new_ws")))
 	{
+		xil_printf("Upgrading socket!\r\n");
 		hlen = generate_ws_upgrade_header((char *)buf, req, rlen);
-		WSpcb = pcb;
-		WS_ok = 1;
+		/* Turn on TCP Keepalive for the given pcb */
+		pcb->so_options |= SOF_KEEPALIVE|SOF_REUSEADDR|SOF_ACCEPTCONN;
+		pcb->keep_idle = 10000;
+		pcb->keep_cnt_sent = 255;
 		if ((err = tcp_write(pcb, buf, hlen, 3)) != ERR_OK)
 		{
+			xil_printf("Error creating WS handshake\r\n");
 			xil_printf("error (%d) writing http header to socket\r\n", err);
 			xil_printf("attempted to write #bytes = %d, tcp_sndbuf = %d\r\n", hlen, tcp_sndbuf(pcb));
 			xil_printf("http header = %s\r\n", buf);
 			return -1;
 		}
+		if ((err = tcp_output(pcb)) != ERR_OK)
+		{
+			xil_printf("Error creating WS handshake\r\n");
+			xil_printf("error (%d) sending http header to socket\r\n", err);
+			xil_printf("attempted to write #bytes = %d, tcp_sndbuf = %d\r\n", hlen, tcp_sndbuf(pcb));
+			xil_printf("http header = %s\r\n", buf);
+			return -1;
+		}
+		WSpcb = pcb;
+		WS_ok = 1;
 		return 0;
 	}
 
@@ -141,6 +156,7 @@ int do_http_get(struct tcp_pcb *pcb, char *req, int rlen)
 	hlen = generate_http_header((char *)buf, fext, fsize);
 	if ((err = tcp_write(pcb, buf, hlen, 3)) != ERR_OK)
 	{
+		xil_printf("Error generating http header\r\n");
 		xil_printf("error (%d) writing http header to socket\r\n", err);
 		xil_printf("attempted to write #bytes = %d, tcp_sndbuf = %d\r\n", hlen, tcp_sndbuf(pcb));
 		xil_printf("http header = %s\r\n", buf);
@@ -234,6 +250,9 @@ int generate_response(struct tcp_pcb *pcb, char *http_req, int http_req_len)
     u8 maskingKey[4] = {'\0'};
     u8 * originalData = (u8 *) &http_req[6];
     u8 transformedData[128] = {'\0'};
+    u8 txBuff[128] = {'\0'};
+	u8 level_ascii[5] = {'\0'};
+    err_t err;
 	enum http_req_type request_type = decode_http_request(http_req, http_req_len);
 
 	switch(request_type)
@@ -246,7 +265,33 @@ int generate_response(struct tcp_pcb *pcb, char *http_req, int http_req_len)
 		default:
 			memcpy(maskingKey, &http_req[2], 4);
 		    WSMaskUnmaskData(originalData, payloadLength, maskingKey, transformedData);
-			return 0;
+		    //xil_printf("RX:%s:XR\r\n", transformedData);
+		    if(!memcmp(transformedData, "wl", 2))
+		    {
+		    	myItoA(spi_ADC_reading, &level_ascii[0]);
+		    	//xil_printf("LEVEL_ASCII:%s:IICSA_LEVEL\r\n", level_ascii);
+				txBuff[0] = 0x81;
+				txBuff[1] = strlen((char *) level_ascii);
+				memcpy(&txBuff[2], level_ascii, strlen((char *) level_ascii));
+				if ((err = tcp_write(pcb, txBuff, strlen((char *) txBuff), 3)) != ERR_OK)
+				{
+					xil_printf("Error echoing WS data\r\n");
+					xil_printf("error (%d) writing http header to socket\r\n", err);
+					xil_printf("attempted to write #bytes = %d, tcp_sndbuf = %d\r\n", strlen((char *) txBuff), tcp_sndbuf(pcb));
+					xil_printf("http header = %s\r\n", txBuff);
+					return -1;
+				}
+				if ((err = tcp_output(pcb)) != ERR_OK)
+				{
+					xil_printf("Error echoing WS data\r\n");
+					xil_printf("error (%d) sending http header to socket\r\n", err);
+					xil_printf("attempted to write #bytes = %d, tcp_sndbuf = %d\r\n", strlen((char *) txBuff), tcp_sndbuf(pcb));
+					xil_printf("http header = %s\r\n", txBuff);
+					return -1;
+				}
+				return 0;
+		    }
+		    return -1;
 	}
 }
 
@@ -263,25 +308,37 @@ void WSMaskUnmaskData(u8 * originalData, u8 len, u8 * maskingKey, u8 * transform
 	}
 }
 
-int updateWSWithWaterLevel(u32 level)
+int updateWSWithWaterLevel(struct tcp_pcb * pcb, u32 level)
 {
-	u8 txBuff[127] = {'\0'};
+	u8 txBuff[128] = {'\0'};
+	u8 level_ascii[5] = {'\0'};
 	err_t err;
-	myItoA((int) level, &txBuff[2]);
+	myItoA((int) level, &level_ascii[0]);
 	txBuff[0] = 0x81;
 	txBuff[1] = strlen((char *) txBuff);
-	//if ((err = tcp_write(WSpcb, txBuff, strlen((char *) txBuff), 3)) != ERR_OK)
-	//{
-	//	xil_printf("error (%d) writing http header to socket\r\n", err);
-	//	xil_printf("attempted to write #bytes = %d, tcp_sndbuf = %d\r\n", strlen((char *) txBuff), tcp_sndbuf(WSpcb));
-	//	xil_printf("http header = %s\r\n", txBuff);
-	//	return -1;
-	//}
-	xil_printf("%d\r", level);
+	memcpy(&txBuff[2], &level_ascii[0], strlen((char *) level_ascii));
+	xil_printf("Writing water level\r\n");
+	if ((err = tcp_write(pcb, txBuff, strlen((char *) txBuff), 3)) != ERR_OK)
+	{
+		xil_printf("Error sending WS timed data\r\n");
+		xil_printf("error (%d) writing http header to socket\r\n", err);
+		xil_printf("attempted to write #bytes = %d, tcp_sndbuf = %d\r\n", strlen((char *) txBuff), tcp_sndbuf(pcb));
+		xil_printf("http header = %s\r\n", txBuff);
+		return -1;
+	}
+	if ((err = tcp_output(pcb)) != ERR_OK)
+	{
+		xil_printf("Error sending WS timed data\r\n");
+		xil_printf("error (%d) sending http header to socket\r\n", err);
+		xil_printf("attempted to write #bytes = %d, tcp_sndbuf = %d\r\n", strlen((char *) txBuff), tcp_sndbuf(pcb));
+		xil_printf("http header = %s\r\n", txBuff);
+		return -1;
+	}
+	xil_printf("Level sent: %d\r", level);
 	return strlen((char *) txBuff);
 }
 
-void myItoA(int value, u8 * buffer)
+int myItoA(int value, u8 * buffer)
 {
 	int i = 0;
 	buffer[0] = ((value - (value % 1000))/1000) + '0';
@@ -289,11 +346,17 @@ void myItoA(int value, u8 * buffer)
 	buffer[2] = (((value % 100) - (value % 10))/10) + '0';
 	buffer[3] = (value % 10) + '0';
 
-	for(i = 0; i < 4; i++)
+	for(i = 0; i < 3; i++)
 	{
 		if(buffer[0] == '0')
 		{
-			memcpy(&buffer[0], &buffer[1], 3-i);
+			memcpy(&buffer[0], &buffer[1], 4-i);
+		}
+		else
+		{
+			break;
 		}
 	}
+
+	return 4-i;
 }

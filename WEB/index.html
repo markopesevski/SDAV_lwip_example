@@ -53,6 +53,7 @@
                 webSocket.onmessage = function(event)
                 {
                     writeResponse(event.data);
+                    webSocket.send("wl");
                 };
 
                 webSocket.onclose = function(event)

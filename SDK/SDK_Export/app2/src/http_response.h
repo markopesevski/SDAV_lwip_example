@@ -26,7 +26,7 @@
 	void dump_payload(char *p, int len);
 	int generate_response(struct tcp_pcb *pcb, char *http_req, int http_req_len);
 	void WSMaskUnmaskData(u8 * data, u8 len, u8 * key, u8 * transformed);
-	int updateWSWithWaterLevel(u32 level);
-	void myItoA(int value, u8 * buffer);
+	int updateWSWithWaterLevel(struct tcp_pcb * pcb, u32 level);
+	int myItoA(int value, u8 * buffer);
 
 #endif //__HTTP_RESPONSE_H_
