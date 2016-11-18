@@ -16,14 +16,14 @@
 			<button type="button" onclick="closeSocket();" >Close</button>
 		</div>
 		<div id="messages"></div>
-		<div id="graph" style="width:600px;height:250px;"></div>
+		<div id="graph" style="width:600px;height:600px;"></div>
 		<script type="text/javascript">
 			var webSocket;
 			var messages = document.getElementById("messages");
 			var graphDiv = document.getElementById('graph');
 			var xdata = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 			var ydata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-			var plotCreated = 0;
+			var layout = {title: 'Water Level', showlegend: false};
 			function openSocket()
 			{
 				if(webSocket !== undefined && webSocket.readyState !== WebSocket.CLOSED)
@@ -49,19 +49,9 @@
 				{
 					ydata.shift();
 					ydata.push(event.data-"0");
-					if(plotCreated == 0)
-					{
-						plotCreated = 1;
-						var trace0 = {x: xdata, y: [0,0,0,0,0,0,0,0,0,0], mode: 'markers', opacity: 0.9, marker: {color: 'red', size: 20}};
-						var data = [trace0];
-						var layout = {title: 'Water Level', showlegend: false};
-						Plotly.newPlot(graphDiv, data, layout);
-					}
-					else
-					{
-						var update = {y: ydata};
-						Plotly.restyle(graphDiv, update, [0]);
-					}
+					var trace0 = {x: xdata, y: ydata, mode: 'markers', opacity: 0.9, marker: {color: 'red', size: 2}};
+					var data = [trace0];
+					Plotly.newPlot(graphDiv, data, layout);
 				};
 				webSocket.onclose = function(event)
 				{
