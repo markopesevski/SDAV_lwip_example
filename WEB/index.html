@@ -1,83 +1,86 @@
 <!DOCTYPE html>
-
 <html>
-    <head>
-        <title>Intent de WS</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width">
-    </head>
-    <body>
+	<head>
+		<title>Intent de WS</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+	</head>
+	<body>
+		<div>
+			<input type="text" id="messageinput"/>
+		</div>
+		<div>
+			<button type="button" onclick="openSocket();" >Open</button>
+			<button type="button" onclick="send();" >Send</button>
+			<button type="button" onclick="closeSocket();" >Close</button>
+		</div>
+		<div id="messages"></div>
+		<div id="graph" style="width:600px;height:250px;"></div>
+		<script type="text/javascript">
+			var webSocket;
+			var messages = document.getElementById("messages");
+			var graphDiv = document.getElementById('graph');
+			var xdata = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+			var ydata = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+			var plotCreated = 0;
+			function openSocket()
+			{
+				if(webSocket !== undefined && webSocket.readyState !== WebSocket.CLOSED)
+				{
+				   writeResponse("WebSocket is already opened.");
+				   return;
+				}
+				webSocket = new WebSocket("ws://"+ new URL(document.URL).hostname +":80/new_ws");
+				webSocket.onopen = function(event)
+				{
+					// For reasons I can't determine, onopen gets called twice
+					// and the first time event.data is undefined.
+					// Leave a comment if you know the answer.
+					if(event.data === undefined)
+					{
+						return;
+					}
 
-        <div>
-            <input type="text" id="messageinput"/>
-        </div>
-        <div>
-            <button type="button" onclick="openSocket();" >Open</button>
-            <button type="button" onclick="send();" >Send</button>
-            <button type="button" onclick="closeSocket();" >Close</button>
-        </div>
-        <!-- Server responses get written here -->
-        <div id="messages"></div>
-
-        <!-- Script to utilise the WebSocket -->
-        <script type="text/javascript">
-            var webSocket;
-            var messages = document.getElementById("messages");
-
-            function openSocket()
-            {
-                // Ensures only one connection is open at a time
-                if(webSocket !== undefined && webSocket.readyState !== WebSocket.CLOSED)
-                {
-                   writeResponse("WebSocket is already opened.");
-                   return;
-                }
-                // Create a new instance of the websocket
-                webSocket = new WebSocket("ws://"+ new URL(document.URL).hostname +":80/new_ws");
-
-                //Binds functions to the listeners for the websocket.
-                webSocket.onopen = function(event)
-                {
-                    // For reasons I can't determine, onopen gets called twice
-                    // and the first time event.data is undefined.
-                    // Leave a comment if you know the answer.
-                    if(event.data === undefined)
-                    {
-                        return;
-                    }
-
-                   	writeResponse("WebSocket open");
-                    writeResponse(event.data);
-                };
-
-                webSocket.onmessage = function(event)
-                {
-                    writeResponse(event.data);
-                    webSocket.send("wl");
-                };
-
-                webSocket.onclose = function(event)
-                {
-                    writeResponse("Connection closed");
-                };
-            }
-
-            //Sends the value of the text input to the server
-            function send()
-            {
-                var text = document.getElementById("messageinput").value;
-                webSocket.send(text);
-            }
-
-            function closeSocket()
-            {
-                webSocket.close();
-            }
-
-            function writeResponse(text)
-            {
-                messages.innerHTML += "<br/>" + text;
-            }
-        </script>
-    </body>
+					writeResponse("WebSocket open");
+					writeResponse(event.data);
+				};
+				webSocket.onmessage = function(event)
+				{
+					ydata.shift();
+					ydata.push(event.data-"0");
+					if(plotCreated == 0)
+					{
+						plotCreated = 1;
+						var trace0 = {x: xdata, y: [0,0,0,0,0,0,0,0,0,0], mode: 'markers', opacity: 0.9, marker: {color: 'red', size: 20}};
+						var data = [trace0];
+						var layout = {title: 'Water Level', showlegend: false};
+						Plotly.newPlot(graphDiv, data, layout);
+					}
+					else
+					{
+						var update = {y: ydata};
+						Plotly.restyle(graphDiv, update, [0]);
+					}
+				};
+				webSocket.onclose = function(event)
+				{
+					writeResponse("Connection closed");
+				};
+			}
+			function send()
+			{
+				var text = document.getElementById("messageinput").value;
+				webSocket.send(text);
+			}
+			function closeSocket()
+			{
+				webSocket.close();
+			}
+			function writeResponse(text)
+			{
+				messages.innerHTML += "<br/>" + text;
+			}
+		</script>
+	</body>
 </html>

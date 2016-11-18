@@ -141,8 +141,6 @@ u32 read_spi(XSpi * spi)
 	u32 ret_value = 0;
 
 	XSpi_Transfer(spi, dataTx, dataRx, 2);
-	xil_printf("dataRx[0]: %d\r\n", dataRx[0]);
-	xil_printf("dataRx[1]: %d\r\n", dataRx[1]);
 	ret_value = ((dataRx[0] << 8 | dataRx[1]) & 0x3FF);
 	if(ret_value > 1024)
 	{

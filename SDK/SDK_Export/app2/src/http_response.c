@@ -317,7 +317,6 @@ int updateWSWithWaterLevel(struct tcp_pcb * pcb, u32 level)
 	txBuff[0] = 0x81;
 	txBuff[1] = strlen((char *) level_ascii);
 	memcpy(&txBuff[2], &level_ascii[0], strlen((char *) level_ascii));
-	xil_printf("Writing water level\r\n");
 	if ((err = tcp_write(pcb, txBuff, strlen((char *) txBuff), 3)) != ERR_OK)
 	{
 		xil_printf("Error sending WS timed data\r\n");
@@ -334,7 +333,7 @@ int updateWSWithWaterLevel(struct tcp_pcb * pcb, u32 level)
 		xil_printf("http header = %s\r\n", txBuff);
 		return -1;
 	}
-	xil_printf("Level sent: %d\r", level);
+	xil_printf("WL: %d\r", level);
 	return strlen((char *) txBuff);
 }
 
