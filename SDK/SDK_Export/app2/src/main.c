@@ -124,9 +124,9 @@ int main(void)
 			{
 				xil_printf("Timeout\r\n");
 				xil_printf("Trying to configure default IP of 192.168.1.10\r\n");
-				IP4_ADDR(&(netif->ip_addr),  192, 168,   1, 10);
-				IP4_ADDR(&(netif->netmask), 255, 255, 255,  0);
-				IP4_ADDR(&(netif->gw),      192, 168,   1,  1);
+				IP4_ADDR(&(netif->ip_addr),	192,	168,	1,		10);
+				IP4_ADDR(&(netif->netmask),	255,	255,	255,	0);
+				IP4_ADDR(&(netif->gw),		192,	168,	1,		1);
 			}
 		}
 		else
