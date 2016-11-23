@@ -28,6 +28,7 @@ LIBS:opto
 LIBS:atmel
 LIBS:contrib
 LIBS:valves
+LIBS:adaptador-cache
 EELAYER 25 0
 EELAYER END
 $Descr A4 11693 8268
@@ -75,9 +76,9 @@ Text Label 2750 3100 0    60   ~ 0
 GND
 Text Label 1800 3100 0    60   ~ 0
 GND
-Text Label 1800 3200 0    60   ~ 0
+Text Label 2750 3300 0    60   ~ 0
 SCK
-Text Label 1800 3300 0    60   ~ 0
+Text Label 2750 3400 0    60   ~ 0
 MISO
 Wire Wire Line
 	2550 3100 2750 3100
@@ -92,9 +93,9 @@ F 3 "" H 4750 3500 50  0000 C CNN
 	1    4750 3300
 	-1   0    0    1   
 $EndComp
-Text Label 1800 3500 0    60   ~ 0
+Text Label 2750 3200 0    60   ~ 0
 /CS
-Text Label 1800 3400 0    60   ~ 0
+Text Label 2750 3500 0    60   ~ 0
 MOSI
 Wire Wire Line
 	3800 3200 4050 3200
@@ -141,11 +142,11 @@ Wire Wire Line
 Wire Wire Line
 	1800 3000 2050 3000
 Wire Wire Line
-	1800 3500 2050 3500
+	2550 3300 2750 3300
 Wire Wire Line
-	2050 3400 1800 3400
+	2550 3400 2750 3400
 Wire Wire Line
-	1800 3300 2050 3300
+	2750 3500 2550 3500
 Wire Wire Line
-	1800 3200 2050 3200
+	2550 3200 2750 3200
 $EndSCHEMATC
