@@ -307,7 +307,7 @@ int updateWSWithWaterLevel(struct tcp_pcb * pcb, u32 level)
 		xil_printf("http header = %s\r\n", txBuff);
 		return -1;
 	}
-	xil_printf("WL: %d\r", level);
+	xil_printf("WL: %4d\r", level);
 	return strlen((char *) txBuff);
 }
 

@@ -2,6 +2,8 @@
 
 volatile int TcpFastTmrFlag = 0;
 volatile int TcpSlowTmrFlag = 0;
+volatile int fastestTmrFlag = 0;
+volatile int fastestTmrCount = 0;
 
 #if LWIP_DHCP==1
 	volatile int dhcp_timoutcntr = 24;
@@ -13,27 +15,36 @@ void timer_callback()
 	#if LWIP_DHCP==1
 		static int dhcp_timer = 0;
 	#endif //LWIP_DHCP
-	TcpFastTmrFlag = 1;
 
-	odd = !odd;
-	if (odd)
+	fastestTmrFlag = 1;
+
+	if(fastestTmrCount >= 3)
 	{
-		#if LWIP_DHCP==1
-			dhcp_timer++;
-			dhcp_timoutcntr--;
-		#endif //LWIP_DHCP
+		fastestTmrCount = 0;
+		TcpFastTmrFlag = 1;
 
-		TcpSlowTmrFlag = 1;
+		odd = !odd;
+		if (odd)
+		{
+			#if LWIP_DHCP==1
+				dhcp_timer++;
+				dhcp_timoutcntr--;
+			#endif //LWIP_DHCP
 
-		#if LWIP_DHCP==1
-			dhcp_fine_tmr();
-			if (dhcp_timer >= 120)
-			{
-				dhcp_coarse_tmr();
-				dhcp_timer = 0;
-			}
-		#endif //LWIP_DHCP
+			TcpSlowTmrFlag = 1;
+
+			#if LWIP_DHCP==1
+				dhcp_fine_tmr();
+				if (dhcp_timer >= 120)
+				{
+					dhcp_coarse_tmr();
+					dhcp_timer = 0;
+				}
+			#endif //LWIP_DHCP
+		}
 	}
+
+	fastestTmrCount++;
 }
 
 void xadapter_timer_handler(void *p)
@@ -48,7 +59,8 @@ void xadapter_timer_handler(void *p)
 	XIntc_AckIntr(XPAR_INTC_0_BASEADDR, PLATFORM_TIMER_INTERRUPT_MASK);
 }
 
-#define TIMER_TLR (XPAR_TMRCTR_0_CLOCK_FREQ_HZ / 4)
+//#define TIMER_TLR (XPAR_TMRCTR_0_CLOCK_FREQ_HZ / 4)
+#define TIMER_TLR (XPAR_TMRCTR_0_CLOCK_FREQ_HZ / 12)
 void platform_setup_timer()
 {
 	/* set the number of cycles the timer counts before interrupting */

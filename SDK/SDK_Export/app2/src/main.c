@@ -26,6 +26,7 @@
 
 extern volatile int TcpFastTmrFlag;
 extern volatile int TcpSlowTmrFlag;
+extern volatile int fastestTmrFlag;
 extern u8 WS_ok;
 extern struct tcp_pcb * WSpcb;
 
@@ -155,16 +156,20 @@ int main(void)
 		{
 			tcp_fasttmr();
 			TcpFastTmrFlag = 0;
-			if(WS_ok > 0)
-			{
-		    	spi_ADC_reading = read_spi(&SPI_instance);
-				updateWSWithWaterLevel(WSpcb, spi_ADC_reading);
-			}
 		}
 		if (TcpSlowTmrFlag)
 		{
 			tcp_slowtmr();
 			TcpSlowTmrFlag = 0;
+		}
+		if(fastestTmrFlag)
+		{
+			if(WS_ok > 0)
+			{
+		    	spi_ADC_reading = read_spi(&SPI_instance);
+				updateWSWithWaterLevel(WSpcb, spi_ADC_reading);
+			}
+			fastestTmrFlag = 0;
 		}
 
 		xemacif_input(netif);
