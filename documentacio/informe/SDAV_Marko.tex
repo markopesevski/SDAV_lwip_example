@@ -22,7 +22,7 @@
 
 	\usepackage{fixltx2e}
 	\usepackage{url}
-	\hyphenation{op-tical net-works semi-conduc-tor re-a-li-za-ble}
+	\hyphenation{re-a-li-za-ble sig-ni-fi-ca-do co-ne-xio-nes in-for-ma-cion}
 
 	\def\abstractname{Resumen}
 	\def\refname{Referencias}
@@ -173,17 +173,19 @@
 
 	\section{Lado cliente}
 
-		Tras todo el resto la \'ultima parte que compone este trabajo es la visualizaci\'on de los datos
-		en la p\'agina web. Para \'esta se ha utilizado un archivo HTML sencillo para crear un bot\'on
-		que sirva para abrir la conexi\'on WebSocket (elevar el protoclo HTTP), y una gr\'afica
-		utilizando librer\'ias de JavaScript ajenas \cite{bib:plotly-js}. Adem\'as de esto, hace falta
-		un peque\~no script en lenguaje JavaScript para gestionar la comunicaci\'on WebSocket.
+		Tras todo el resto la \'ultima parte que compone este trabajo es la visualizaci\'on de los
+		datos en la p\'agina web. Para \'esta se ha utilizado un archivo HTML sencillo para crear un
+		bot\'on que sirva para abrir la conexi\'on WebSocket (elevar el protoclo HTTP), y un
+		gr\'afico utilizando librer\'ias de JavaScript ajenas \cite{bib:plotly-js}. En este
+		gr\'afico se muestra directamente el valor de 10 bits $[0,1023]$ de salida del conversor
+		anal\'ogico -- digital. Adem\'as de este gr\'afico (que s\'olo se dibuja una vez se tienen
+		datos, es decir, una vez abierta la comunicaci\'on WebSocket), hace falta un peque\~no
+		script en lenguaje JavaScript para gestionar la comunicaci\'on.
 
 		\begin{figure}[h!]
 			\centering
-			%\includegraphics[width=0.3\textwidth]{./figuras/web_cliente.png}
-			AA
-			\caption{Web dise\~nada para este trabajo}
+			\includegraphics[width=0.49\textwidth]{./figuras/web_cliente.png}
+			\caption{Web dise\~nada para este trabajo, mostrando brevemente el significado de los datos visualizados}
 			\label{fig:web_cliente}
 		\end{figure}
 
@@ -196,18 +198,39 @@
 
 	\section{Conclusiones}
 
-		The conclusion goes here.
+		Con el desarrollo descrito anteriormente se han conseguido los objetivos propuestos para
+		este trabajo: mostrar el nivel de agua de un dep\'osito le\'ido con un sensor de muy bajo
+		coste en una p\'agina web con la menor latencia posible, utilizando para ello un n\'ucleo
+		MicroBlaze sobre una FPGA Spartan 6 de Xilinx.
 
 	\section{Trabajo futuro}
 
-		Implementar el resto de funcionalidad del protocolo WebSocket: ser capaz de gestionar varias
-		conexiones, abrir/cerrar conexiones, etc\'etera.
+		Por cuestiones l\'ogicas de tiempo y simplicidad, muchas cosas han quedado por desarrollar
+		en este trabajo. Entre ellas, algunas de las m\'as relevantes ser\'ian:
 
-		Linealizar el sensor y calibrarlo de alguna manera. Puede ser necesario utilizar alg\'un
-		amplificador del nivel de tensi\'on en la salida del sensor.
+		\begin{itemize}
+			\item
+			{
 
-		Hacer que lo que se muestra en la web no sea solamente la lectura del conversor anal\'ogico
-		-- digital sino algo con m\'as sentido.
+				Implementar el resto de funcionalidad del protocolo WebSocket: ser capaz de
+				gestionar varias conexiones, abrir/cerrar conexiones, etc\'etera.
+
+			}
+			\item
+			{
+
+				Linealizar el sensor y calibrarlo de alguna manera. Puede ser necesario utilizar
+				alg\'un amplificador del nivel de tensi\'on en la salida del sensor.
+
+			}
+			\item
+			{
+
+				Hacer que lo que se muestra en la web no sea solamente la lectura del conversor
+				anal\'ogico -- digital sino algo con m\'as sentido.
+
+			}
+		\end{itemize}
 
 	\bibliographystyle{IEEEtran}
 	\begin{thebibliography}{1}
@@ -223,6 +246,9 @@
 
 		\bibitem{bib:plotly-js}
 			Plotly, \emph{What is plotly.js?}, \url{https://plot.ly/javascript/}.
+
+		\bibitem{bib:repo}
+			M.~Peshevski, \emph{SDAV\_mini-projecte}, repositorio Git con toda la informaci\'on sobre este trabajo, \url{https://github.com/markopesevski/SDAV_mini-projecte}.
 
 	\end{thebibliography}
 
