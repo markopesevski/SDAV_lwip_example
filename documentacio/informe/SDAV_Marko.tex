@@ -294,7 +294,7 @@
 
 
 % correct bad hyphenation here
-\hyphenation{op-tical net-works semi-conduc-tor}
+\hyphenation{op-tical net-works semi-conduc-tor re-a-li-za-ble}
 
 \def\abstractname{Resumen}
 \def\refname{Referencias}
@@ -417,7 +417,33 @@ marko.peshevski@estudiant.upc.edu}}
 	Avnet \cite{bib:lwip-example}. En este ejemplo se utiliza la interfaz Ethernet a trav\'es de un
 	n\'ucleo de propiedad intelectual (IP Core) de Xilinx llamado \emph{AXI\_Ethernetlite}. Este IP
 	Core es el encargado de gestionar la comunicaci\'on a trav\'es de la interfaz ethernet, y desde
-	el c\'odigo del n\'ucleo MicroBlaze se utiliza la misma desde un nivel relativamente alto
+	el c\'odigo del n\'ucleo MicroBlaze se utiliza la misma desde un nivel relativamente alto. Este
+	IP Core gestiona la pila de protocolo del modelo OSI hasta el nivel de enlace de datos (donde se
+	hallan los protocolos de acceso al medio), siendo el resto de niveles (por encima del nivel de
+	red, inclu\'ido), responsabilidad del usuario del IP Core.
+
+\section{Librer\'ia TCP/IP: lwIP}
+
+	Para gestionar los niveles superiores del modelo OSI se utiliza la librer\'ia de protocolo
+	TCP/IP llamada lwIP (lightweight IP). Esta es una librer\'ia de c\'odigo abierto especialmente
+	dise\~nada para sistemas empotrados. Esta es la librer\'ia que, en el c\'odigo del n\'ucleo
+	MicroBlaze, se encarga de gestionar las conexiones TCP, de comunicarse con el nodo lejano que
+	intenta establecer una conexi\'on con el servidor, etc\'etera.
+
+\section{WebSockets}
+
+	Para conseguir el prop\'osito de m\'inima latencia posible en la visualizaci\'on de los datos en
+	el navegador que accede a la p\'agina web servida por la FPGA se necesita comunicaci\'on
+	bidireccional. Dicha comunicaci\'on no es f\'acilmente realizable con un servidor web de
+	protocolo HTTP. Si se quisiera utilizar un protocolo HTTP para este f\'in lo que cabr\'ia hacer
+	es que el cliente (navegador web) hiciera peticiones de tipo GET y POST para que el servidor le
+	responda con los datos. Esto es tremendamente lento debido a que con el protocolo HTTP cada vez
+	que se termina una petici\'on o respuesta a unos datos se cierra la conexi\'on. Una posible
+	soluci\'on a este problema es utilizar WebSockets. Un WebSocket es, \emph{grosso modo}, una
+	conexi\'on HTTP elevada a otro protocolo (WebSocket) que permite comunicaci\'on bidireccional en
+	cualquier momento, sin que cliente o servidor tengan que hacer una petici\'on. Para el
+	prop\'osito del trabajo esto es ideal puesto que una vez establecida la comunicaci\'on el
+	servidor puede mandar informaci\'on al cliente tan a menudo como sea necesario.
 
 %\begin{figure}[!t]
 %\centering
