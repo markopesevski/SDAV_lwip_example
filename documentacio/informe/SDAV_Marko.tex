@@ -1,449 +1,251 @@
-
-%% bare_conf_compsoc.tex
-%% V1.4b
-%% 2015/08/26
-%% by Michael Shell
-%% See:
-%% http://www.michaelshell.org/
-%% for current contact information.
-%%
-%% This is a skeleton file demonstrating the use of IEEEtran.cls
-%% (requires IEEEtran.cls version 1.8b or later) with an IEEE Computer
-%% Society conference paper.
-%%
-%% Support sites:
-%% http://www.michaelshell.org/tex/ieeetran/
-%% http://www.ctan.org/pkg/ieeetran
-%% and
-%% http://www.ieee.org/
-
-%%*************************************************************************
-%% Legal Notice:
-%% This code is offered as-is without any warranty either expressed or
-%% implied; without even the implied warranty of MERCHANTABILITY or
-%% FITNESS FOR A PARTICULAR PURPOSE!
-%% User assumes all risk.
-%% In no event shall the IEEE or any contributor to this code be liable for
-%% any damages or losses, including, but not limited to, incidental,
-%% consequential, or any other damages, resulting from the use or misuse
-%% of any information contained here.
-%%
-%% All comments are the opinions of their respective authors and are not
-%% necessarily endorsed by the IEEE.
-%%
-%% This work is distributed under the LaTeX Project Public License (LPPL)
-%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
-%% distributed and modified. A copy of the LPPL, version 1.3, is included
-%% in the base LaTeX documentation of all distributions of LaTeX released
-%% 2003/12/01 or later.
-%% Retain all contribution notices and credits.
-%% ** Modified files should be clearly indicated as such, including  **
-%% ** renaming them and changing author support contact information. **
-%%*************************************************************************
-
-
-% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
-% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
-% *** with production work. The IEEE's font choices and paper sizes can   ***
-% *** trigger bugs that do not appear when using other class files.       ***                          ***
-% The testflow support page is at:
-% http://www.michaelshell.org/tex/testflow/
-
-
 \documentclass[conference,compsoc]{IEEEtran}
-% Some/most Computer Society conferences require the compsoc mode option,
-% but others may want the standard conference format.
-%
-% If IEEEtran.cls has not been installed into the LaTeX system files,
-% manually specify the path to it like:
-% \documentclass[conference,compsoc]{../sty/IEEEtran}
 
+	\ifCLASSOPTIONcompsoc
+		\usepackage[nocompress]{cite}
+	\else
+		\usepackage{cite}
+	\fi
 
-% Some very useful LaTeX packages include:
-% (uncomment the ones you want to load)
-
-
-% *** MISC UTILITY PACKAGES ***
-%
-%\usepackage{ifpdf}
-% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
-% compilation based on whether the output is pdf or dvi.
-% usage:
-% \ifpdf
-%   % pdf code
-% \else
-%   % dvi code
-% \fi
-% The latest version of ifpdf.sty can be obtained from:
-% http://www.ctan.org/pkg/ifpdf
-% Also, note that IEEEtran.cls V1.7 and later provides a builtin
-% \ifCLASSINFOpdf conditional that works the same way.
-% When switching from latex to pdflatex and vice-versa, the compiler may
-% have to be run twice to clear warning/error messages.
-
-
-% *** CITATION PACKAGES ***
-%
-\ifCLASSOPTIONcompsoc
-  % IEEE Computer Society needs nocompress option
-  % requires cite.sty v4.0 or later (November 2003)
-	\usepackage[nocompress]{cite}
-\else
-  % normal IEEE
-	\usepackage{cite}
-\fi
-% cite.sty was written by Donald Arseneau
-% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
-% \cite{} output to follow that of the IEEE. Loading the cite package will
-% result in citation numbers being automatically sorted and properly
-% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
-% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
-% \cite will automatically add leading space, if needed. Use cite.sty's
-% noadjust option (cite.sty V3.8 and later) if you want to turn this off
-% such as if a citation ever needs to be enclosed in parenthesis.
-% cite.sty is already installed on most LaTeX systems. Be sure and use
-% version 5.0 (2009-03-20) and later if using hyperref.sty.
-% The latest version can be obtained at:
-% http://www.ctan.org/pkg/cite
-% The documentation is contained in the cite.sty file itself.
-%
-% Note that some packages require special options to format as the Computer
-% Society requires. In particular, Computer Society  papers do not use
-% compressed citation ranges as is done in typical IEEE papers
-% (e.g., [1]-[4]). Instead, they list every citation separately in order
-% (e.g., [1], [2], [3], [4]). To get the latter we need to load the cite
-% package with the nocompress option which is supported by cite.sty v4.0
-% and later.
-
-
-% *** GRAPHICS RELATED PACKAGES ***
-%
-\ifCLASSINFOpdf
 	\usepackage[pdftex]{graphicx}
-  % declare the path(s) where your graphic files are
 	\graphicspath{{./figuras/}}
-  % and their extensions so you won't have to specify these with
-  % every instance of \includegraphics
-  \DeclareGraphicsExtensions{.pdf,.jpeg,.png,.jpg}
-\else
-  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
-  % will default to the driver specified in the system graphics.cfg if no
-  % driver is specified.
-  % \usepackage[dvips]{graphicx}
-  % declare the path(s) where your graphic files are
-  % \graphicspath{{../eps/}}
-  % and their extensions so you won't have to specify these with
-  % every instance of \includegraphics
-  % \DeclareGraphicsExtensions{.eps}
-\fi
-% graphicx was written by David Carlisle and Sebastian Rahtz. It is
-% required if you want graphics, photos, etc. graphicx.sty is already
-% installed on most LaTeX systems. The latest version and documentation
-% can be obtained at:
-% http://www.ctan.org/pkg/graphicx
-% Another good source of documentation is "Using Imported Graphics in
-% LaTeX2e" by Keith Reckdahl which can be found at:
-% http://www.ctan.org/pkg/epslatex
-%
-% latex, and pdflatex in dvi mode, support graphics in encapsulated
-% postscript (.eps) format. pdflatex in pdf mode supports graphics
-% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
-% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
-% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
-% which can result in "jaggedy"/blurry rendering of lines and letters as
-% well as large increases in file sizes.
-%
-% You can find documentation about the pdfTeX application at:
-% http://www.tug.org/applications/pdftex
+	\DeclareGraphicsExtensions{.pdf,.jpeg,.png,.jpg}
+	\usepackage{amsmath}
+	\interdisplaylinepenalty=2500
+	\usepackage{algorithmic}
+	\usepackage{array}
 
+	\ifCLASSOPTIONcompsoc
+		\usepackage[caption=false,font=footnotesize,labelfont=sf,textfont=sf]{subfig}
+	\else
+		\usepackage[caption=false,font=footnotesize]{subfig}
+	\fi
 
-% *** MATH PACKAGES ***
-%
-\usepackage{amsmath}
-% A popular package from the American Mathematical Society that provides
-% many useful and powerful commands for dealing with mathematics.
-%
-% Note that the amsmath package sets \interdisplaylinepenalty to 10000
-% thus preventing page breaks from occurring within multiline equations. Use:
-\interdisplaylinepenalty=2500
-% after loading amsmath to restore such page breaks as IEEEtran.cls normally
-% does. amsmath.sty is already installed on most LaTeX systems. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/pkg/amsmath
+	\usepackage{fixltx2e}
+	\usepackage{url}
+	\hyphenation{op-tical net-works semi-conduc-tor re-a-li-za-ble}
 
-
-% *** SPECIALIZED LIST PACKAGES ***
-%
-\usepackage{algorithmic}
-% algorithmic.sty was written by Peter Williams and Rogerio Brito.
-% This package provides an algorithmic environment fo describing algorithms.
-% You can use the algorithmic environment in-text or within a figure
-% environment to provide for a floating algorithm. Do NOT use the algorithm
-% floating environment provided by algorithm.sty (by the same authors) or
-% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
-% algorithm float types and packages that provide these will not provide
-% correct IEEE style captions. The latest version and documentation of
-% algorithmic.sty can be obtained at:
-% http://www.ctan.org/pkg/algorithms
-% Also of interest may be the (relatively newer and more customizable)
-% algorithmicx.sty package by Szasz Janos:
-% http://www.ctan.org/pkg/algorithmicx
-
-
-% *** ALIGNMENT PACKAGES ***
-%
-\usepackage{array}
-% Frank Mittelbach's and David Carlisle's array.sty patches and improves
-% the standard LaTeX2e array and tabular environments to provide better
-% appearance and additional user controls. As the default LaTeX2e table
-% generation code is lacking to the point of almost being broken with
-% respect to the quality of the end results, all users are strongly
-% advised to use an enhanced (at the very least that provided by array.sty)
-% set of table tools. array.sty is already installed on most systems. The
-% latest version and documentation can be obtained at:
-% http://www.ctan.org/pkg/array
-
-
-% IEEEtran contains the IEEEeqnarray family of commands that can be used to
-% generate multiline equations as well as matrices, tables, etc., of high
-% quality.
-
-
-% *** SUBFIGURE PACKAGES ***
-\ifCLASSOPTIONcompsoc
-	\usepackage[caption=false,font=footnotesize,labelfont=sf,textfont=sf]{subfig}
-\else
-	\usepackage[caption=false,font=footnotesize]{subfig}
-\fi
-% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
-% for subfigure.sty, the latter of which is no longer maintained and is
-% incompatible with some LaTeX packages including fixltx2e. However,
-% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
-% which will override IEEEtran.cls' handling of captions and this will result
-% in non-IEEE style figure/table captions. To prevent this problem, be sure
-% and invoke subfig.sty's "caption=false" package option (available since
-% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
-% handling of captions.
-% Note that the Computer Society format requires a sans serif font rather
-% than the serif font used in traditional IEEE formatting and thus the need
-% to invoke different subfig.sty package options depending on whether
-% compsoc mode has been enabled.
-%
-% The latest version and documentation of subfig.sty can be obtained at:
-% http://www.ctan.org/pkg/subfig
-
-
-% *** FLOAT PACKAGES ***
-%
-\usepackage{fixltx2e}
-% fixltx2e, the successor to the earlier fix2col.sty, was written by
-% Frank Mittelbach and David Carlisle. This package corrects a few problems
-% in the LaTeX2e kernel, the most notable of which is that in current
-% LaTeX2e releases, the ordering of single and double column floats is not
-% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
-% single column figure to be placed prior to an earlier double column
-% figure.
-% Be aware that LaTeX2e kernels dated 2015 and later have fixltx2e.sty's
-% corrections already built into the system in which case a warning will
-% be issued if an attempt is made to load fixltx2e.sty as it is no longer
-% needed.
-% The latest version and documentation can be found at:
-% http://www.ctan.org/pkg/fixltx2e
-
-%\usepackage{stfloats}
-% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
-% the ability to do double column floats at the bottom of the page as well
-% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
-% LaTeX2e). It also provides a command:
-%\fnbelowfloat
-% to enable the placement of footnotes below bottom floats (the standard
-% LaTeX2e kernel puts them above bottom floats). This is an invasive package
-% which rewrites many portions of the LaTeX2e float routines. It may not work
-% with other packages that modify the LaTeX2e float routines. The latest
-% version and documentation can be obtained at:
-% http://www.ctan.org/pkg/stfloats
-% Do not use the stfloats baselinefloat ability as the IEEE does not allow
-% \baselineskip to stretch. Authors submitting work to the IEEE should note
-% that the IEEE rarely uses double column equations and that authors should try
-% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
-% packages (also by Sigitas Tolusis) as the IEEE does not format its papers in
-% such ways.
-% Do not attempt to use stfloats with fixltx2e as they are incompatible.
-% Instead, use Morten Hogholm'a dblfloatfix which combines the features
-% of both fixltx2e and stfloats:
-%
-% \usepackage{dblfloatfix}
-% The latest version can be found at:
-% http://www.ctan.org/pkg/dblfloatfix
-
-
-% *** PDF, URL AND HYPERLINK PACKAGES ***
-%
-\usepackage{url}
-% url.sty was written by Donald Arseneau. It provides better support for
-% handling and breaking URLs. url.sty is already installed on most LaTeX
-% systems. The latest version and documentation can be obtained at:
-% http://www.ctan.org/pkg/url
-% Basically, \url{my_url_here}.
-
-% *** Do not adjust lengths that control margins, column widths, etc. ***
-% *** Do not use packages that alter fonts (such as pslatex).         ***
-% There should be no need to do such things with IEEEtran.cls V1.6 and later.
-% (Unless specifically asked to do so by the journal or conference you plan
-% to submit to, of course. )
-
-
-% correct bad hyphenation here
-\hyphenation{op-tical net-works semi-conduc-tor re-a-li-za-ble}
-
-\def\abstractname{Resumen}
-\def\refname{Referencias}
-\def\figurename{Figura}
-\usepackage{SIunits}
-\usepackage{hyperref}
+	\def\abstractname{Resumen}
+	\def\refname{Referencias}
+	\def\figurename{Figura}
+	\usepackage{SIunits}
+	\usepackage{hyperref}
 
 \begin{document}
-%
-% paper title
-% Titles are generally capitalized except for words such as a, an, and, as,
-% at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
-% not capitalized unless they are the first or last word of the title.
-% Linebreaks \\ can be used within to get better formatting as desired.
-% Do not put math or special symbols in the title.
-\title{Detector de nivel de agua y comunicaci\'on v\'ia ethernet con FPGA}
 
-% author names and affiliations
-% use a multiple column layout for up to three different
-% affiliations
-\author{\IEEEauthorblockN{Marko Peshevski}
-\IEEEauthorblockA{EPSEVG\\
-Universitat Polit\`ecnica de Catalunya\\
-marko.peshevski@estudiant.upc.edu}}
+	\title{Detector de nivel de agua y comunicaci\'on v\'ia ethernet con FPGA}
 
-% make the title area
-\maketitle
+	\author{\IEEEauthorblockN{Marko Peshevski}
+	\IEEEauthorblockA{Escola Polit\`ecnica Superior d'Enginyeria de Vilanova i la Geltr\'u\\
+	Universitat Polit\`ecnica de Catalunya\\
+	marko.peshevski@estudiant.upc.edu}}
 
-% As a general rule, do not put math, special symbols or citations
-% in the abstract
-\begin{abstract}
+	\maketitle
 
-	En este trabajo se describe la implementaci\'on y utilizaci\'on de un sensor de nivel de agua
-	econ\'omico sobre un n\'ucleo MicroBlaze en una placa de evaluaci\'on de la FPGA Spartan 6 de
-	Xilinx. Para poder realizar la lectura de este sensor se utiliza un conversor anal\'ogico --
-	digital de Microchip (MCP3002). Todo ello se muestra en una p\'agina web a trav\'es de un
-	servidor que tambi\'en corre sobre el mismo n\'ucleo. La comunicaci\'on con la red se hace a
-	trav\'es de Ethernet puesto que la placa de evaluaci\'on utilizada lo incorpora.
+	\begin{abstract}
 
-\end{abstract}
+		En este trabajo se describe la implementaci\'on y utilizaci\'on de un sensor de nivel de agua
+		econ\'omico sobre un n\'ucleo MicroBlaze en una placa de evaluaci\'on de la FPGA Spartan 6 de
+		Xilinx. Para poder realizar la lectura de este sensor se utiliza un conversor anal\'ogico --
+		digital de Microchip (MCP3002). Todo ello se muestra en una p\'agina web a trav\'es de un
+		servidor que tambi\'en corre sobre el mismo n\'ucleo. La comunicaci\'on con la red se hace a
+		trav\'es de Ethernet puesto que la placa de evaluaci\'on utilizada lo incorpora.
 
-% no keywords
+	\end{abstract}
 
-% For peer review papers, you can put extra information on the cover
-% page as needed:
-% \ifCLASSOPTIONpeerreview
-% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
-% \fi
-%
-% For peerreview papers, this IEEEtran command inserts a page break and
-% creates the second title. It will be ignored for other modes.
-\IEEEpeerreviewmaketitle
+	\section{Introducci\'on}
 
-\section{Introducci\'on}
+		En este trabajo se describe el desarrollo del software necesario sobre
+		un n\'ucleo MicroBlaze de Xilinx para hacer la lectura de un sensor de
+		nivel de agua de bajo coste y mostrar los datos en una p\'agina web que
+		tambi\'en es servida por el mismo n\'ucleo. Para este prop\'osito se ha
+		utilizado una placa de evaluaci\'on de la FPGA Spartan 6 de Xilinx
+		(v\'ease Figura \ref{fig:fpga}). Esta placa en concreto es el modelo
+		Spartan 6 LX9 MicroBoard de Avnet \cite{bib:avnet}.
 
-	En este trabajo se describe el desarrollo del software necesario sobre
-	un n\'ucleo MicroBlaze de Xilinx para hacer la lectura de un sensor de
-	nivel de agua de bajo coste y mostrar los datos en una p\'agina web que
-	tambi\'en es servida por el mismo n\'ucleo. Para este prop\'osito se ha
-	utilizado una placa de evaluaci\'on de la FPGA Spartan 6 de Xilinx
-	(v\'ease Figura \ref{fig:fpga}). Esta placa en concreto es el modelo
-	Spartan 6 LX9 MicroBoard de Avnet \cite{bib:avnet}.
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.35\textwidth]{./figuras/fpga.jpg}
+			\caption{Placa de evaluaci\'on de la FPGA utilizada}
+			\label{fig:fpga}
+		\end{figure}
 
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[width=0.35\textwidth]{./figuras/fpga.jpg}
-		\caption{Placa de evaluaci\'on de la FPGA utilizada}
-		\label{fig:fpga}
-	\end{figure}
+	\section{Objetivo}
 
-\section{Objetivo}
+		El principal objetivo de este trabajo es conseguir mostrar los datos le\'idos del conversor
+		anal\'ogico -- digital en una p\'agina web accesible por cualquier navegador relativamente
+		moderno\footnote{Que tenga soporte para WebSockets.}, y que esta visualizaci\'on tenga la
+		menor latencia posible.
 
-	El principal objetivo de este trabajo es conseguir mostrar los datos le\'idos del conversor
-	anal\'ogico -- digital en una p\'agina web accesible por cualquier navegador relativamente
-	moderno\footnote{Que tenga soporte para WebSockets.}, y que esta visualizaci\'on tenga la
-	menor latencia posible.
+	\section{Sensor de nivel de agua}
 
-\section{Sensor de nivel de agua}
+		El sensor de nivel de agua utilizado en este trabajo es uno de muy bajo coste. En la Figura
+		\ref{fig:sensor} se puede ver una imagen de este sensor. La placa de circuito impreso del sensor
+		en cuesti\'on tiene un transistor NPN con su base conectada directamente a unas pistas en
+		circuito abierto. Paralelas a las pistas en circuito abierto hay otras que est\'an conectadas a
+		la tensi\'on de alimentaci\'on, a trav\'es de una resistencia limitadora de corriente de
+		$100\,\ohm$. Cuando el agua entra en contacto con las pistas cierra el circuito, polarizando la
+		base, y con ello amplificando la corriente de colector-emisor. Debido a que el sensor puede
+		estar m\'as o menos hundido en agua, la longitud de pista hundida modificar\'a la resistencia
+		que habr\'a en serie con la base del transistor. Variando esta resistencia se amplificar\'a en
+		mayor o menor medida la corriente colector-emisor, y con ello se puede saber el nivel de agua
+		del dep\'osito en el que estuviera hundido dicho sensor.
 
-	El sensor de nivel de agua utilizado en este trabajo es uno de muy bajo coste. En la Figura
-	\ref{fig:sensor} se puede ver una imagen de este sensor. La placa de circuito impreso del sensor
-	en cuesti\'on tiene un transistor NPN con su base conectada directamente a unas pistas en
-	circuito abierto. Paralelas a las pistas en circuito abierto hay otras que est\'an conectadas a
-	la tensi\'on de alimentaci\'on, a trav\'es de una resistencia limitadora de corriente de
-	$100\,\ohm$. Cuando el agua entra en contacto con las pistas cierra el circuito, polarizando la
-	base, y con ello amplificando la corriente de colector-emisor. Debido a que el sensor puede
-	estar m\'as o menos hundido en agua, la longitud de pista hundida modificar\'a la resistencia
-	que habr\'a en serie con la base del transistor. Variando esta resistencia se amplificar\'a en
-	mayor o menor medida la corriente colector-emisor, y con ello se puede saber el nivel de agua
-	del dep\'osito en el que estuviera hundido dicho sensor.
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.2\textwidth]{./figuras/sensor.jpg}
+			\caption{Sensor de nivel de agua utilizado para desarrollar este trabajo}
+			\label{fig:sensor}
+		\end{figure}
 
-	\url{http://www.microchip.com/wwwproducts/en/MCP3002}
+	\section{Conversor anal\'ogico -- digital}
 
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[width=0.2\textwidth]{./figuras/sensor.jpg}
-		\caption{Sensor de nivel de agua utilizado para desarrollar este trabajo}
-		\label{fig:sensor}
-	\end{figure}
+		El conversor usado para leer el nivel de tensi\'on del sensor de nivel de agua es el conversor
+		de 10 bits MCP3002 de Microchip\footnote{Se puede encontrar m\'as informaci\'on al respecto en:
+		\url{http://www.microchip.com/wwwproducts/en/MCP3002}}. Este conversor se comunica con el
+		n\'ucleo MicroBlaze a trav\'es de un canal serie SPI. Para obtener datos del mismo basta con una
+		escritura de tan s\'olo 4 bits, a partir de los cuales el conversor ya responde con la medida de
+		10 bits. \'Estos 4 bits, seg\'un el datasheet son:
+		\begin{itemize}
+			\item {Bit de start: inicio de comunicaci\'on, debe ser siempre de nivel alto;}
+			\item {Bit SGL/DIFF: selecciona si se quiere utilizar el conversor para medidas pseudo-diferenciales o respecto al punto com\'un (masa);}
+			\item {Bit ODD/SIGN: selecciona el orden de las entradas no inversora e inversora en el modo pseudo-diferencial, y cu\'al de los dos canales disponibles se quiere leer en el modo de medida respecto al punto com\'un;}
+			\item {Bit MSBF: selecciona si se quiere recibir el bit m\'as significativo primero. Si este bit estuviera a nivel bajo el conversor primero devuelve los datos \emph{dos veces}, primero en orden decreciente (Most Significant Bit First) y luego en orden creciente (Least Significant Bit First).}
+		\end{itemize}
 
-\section{Conversor anal\'ogico -- digital}
+		En la Figura \ref{fig:adc_spi} se puede ver resumido el protocolo que hace falta para
+		comunicarse con el conversor.
 
-	El conversor usado para leer el nivel de tensi\'on del sensor de nivel de agua es el conversor
-	de 10 bits MCP3002 de Microchip\footnote{Se puede encontrar m\'as informaci\'on al respecto en:
-	\url{http://www.microchip.com/wwwproducts/en/MCP3002}}. Este conversor se comunica con el
-	n\'ucleo MicroBlaze a trav\'es de un canal serie SPI. Para obtener datos del mismo basta con una
-	escritura de tan s\'olo 4 bits, a partir de los cuales el conversor ya responde con la medida de
-	10 bits. \'Estos 4 bits, seg\'un el datasheet son:
-	\begin{itemize}
-		\item {Bit de start: inicio de comunicaci\'on, debe ser siempre de nivel alto;}
-		\item {Bit SGL/DIFF: selecciona si se quiere utilizar el conversor para medidas pseudo-diferenciales o respecto al punto com\'un (masa);}
-		\item {Bit ODD/SIGN: selecciona el orden de las entradas no inversora e inversora en el modo pseudo-diferencial, y cu\'al de los dos canales disponibles se quiere leer en el modo de medida respecto al punto com\'un;}
-		\item {Bit MSBF: selecciona si se quiere recibir el bit m\'as significativo primero. Si este bit estuviera a nivel bajo el conversor primero devuelve los datos \emph{dos veces}, primero en orden decreciente (Most Significant Bit First) y luego en orden creciente (Least Significant Bit First).}
-	\end{itemize}
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.49\textwidth]{./figuras/adc_spi.png}
+			\caption{Resumen del protocolo SPI utilizado para leer del conversor anal\'ogico -- digital. Extra\'ida del datasheet del fabricante}
+			\label{fig:adc_spi}
+		\end{figure}
 
-\section{Interfaz Ethernet}
+	\section{Interfaz Ethernet}
 
-	Para desarrollar todo el apartado de comunicaci\'on v\'ia Ethernet y servidor web en este
-	trabajo se ha partido de un ejemplo proporcionado por el fabricante de la placa de evaluaci\'on,
-	Avnet \cite{bib:lwip-example}. En este ejemplo se utiliza la interfaz Ethernet a trav\'es de un
-	n\'ucleo de propiedad intelectual (IP Core) de Xilinx llamado \emph{AXI\_Ethernetlite}. Este IP
-	Core es el encargado de gestionar la comunicaci\'on a trav\'es de la interfaz ethernet, y desde
-	el c\'odigo del n\'ucleo MicroBlaze se utiliza la misma desde un nivel relativamente alto. Este
-	IP Core gestiona la pila de protocolo del modelo OSI hasta el nivel de enlace de datos (donde se
-	hallan los protocolos de acceso al medio), siendo el resto de niveles (por encima del nivel de
-	red, inclu\'ido), responsabilidad del usuario del IP Core.
+		Para desarrollar todo el apartado de comunicaci\'on v\'ia Ethernet y servidor web en este
+		trabajo se ha partido de un ejemplo proporcionado por el fabricante de la placa de evaluaci\'on,
+		Avnet \cite{bib:lwip-example}. En este ejemplo se utiliza la interfaz Ethernet a trav\'es de un
+		n\'ucleo de propiedad intelectual (IP Core) de Xilinx llamado \emph{AXI\_Ethernetlite}. Este IP
+		Core es el encargado de gestionar la comunicaci\'on a trav\'es de la interfaz ethernet, y desde
+		el c\'odigo del n\'ucleo MicroBlaze se utiliza la misma desde un nivel relativamente alto. Este
+		IP Core gestiona la pila de protocolo del modelo OSI hasta el nivel de enlace de datos (donde se
+		hallan los protocolos de acceso al medio), siendo el resto de niveles (por encima del nivel de
+		red, inclu\'ido), responsabilidad del usuario del IP Core.
 
-\section{Librer\'ia TCP/IP: lwIP}
+	\section{Librer\'ia TCP/IP: lwIP}
 
-	Para gestionar los niveles superiores del modelo OSI se utiliza la librer\'ia de protocolo
-	TCP/IP llamada lwIP (lightweight IP). Esta es una librer\'ia de c\'odigo abierto especialmente
-	dise\~nada para sistemas empotrados. Esta es la librer\'ia que, en el c\'odigo del n\'ucleo
-	MicroBlaze, se encarga de gestionar las conexiones TCP, de comunicarse con el nodo lejano que
-	intenta establecer una conexi\'on con el servidor, etc\'etera.
+		Para gestionar los niveles superiores del modelo OSI se utiliza la librer\'ia de protocolo
+		TCP/IP llamada lwIP (lightweight IP). Esta es una librer\'ia de c\'odigo abierto
+		especialmente dise\~nada para sistemas empotrados. Esta es la librer\'ia que, en el c\'odigo
+		del n\'ucleo MicroBlaze, se encarga de gestionar las conexiones TCP, de comunicarse con el
+		nodo lejano que intenta establecer una conexi\'on con el servidor, etc\'etera. Parte del
+		c\'odigo del n\'ucleo que utiliza esta librer\'ia se reaprovecha del ejemplo del fabricante
+		(\cite{bib:lwip-example}), aunque con modificaciones mayores para adaptarlo a la
+		aplicaci\'on del trabajo.
 
-\section{WebSockets}
+	\section{WebSockets}
 
-	Para conseguir el prop\'osito de m\'inima latencia posible en la visualizaci\'on de los datos en
-	el navegador que accede a la p\'agina web servida por la FPGA se necesita comunicaci\'on
-	bidireccional. Dicha comunicaci\'on no es f\'acilmente realizable con un servidor web de
-	protocolo HTTP. Si se quisiera utilizar un protocolo HTTP para este f\'in lo que cabr\'ia hacer
-	es que el cliente (navegador web) hiciera peticiones de tipo GET y POST para que el servidor le
-	responda con los datos. Esto es tremendamente lento debido a que con el protocolo HTTP cada vez
-	que se termina una petici\'on o respuesta a unos datos se cierra la conexi\'on. Una posible
-	soluci\'on a este problema es utilizar WebSockets. Un WebSocket es, \emph{grosso modo}, una
-	conexi\'on HTTP elevada a otro protocolo (WebSocket) que permite comunicaci\'on bidireccional en
-	cualquier momento, sin que cliente o servidor tengan que hacer una petici\'on. Para el
-	prop\'osito del trabajo esto es ideal puesto que una vez establecida la comunicaci\'on el
-	servidor puede mandar informaci\'on al cliente tan a menudo como sea necesario.
+		Para conseguir el prop\'osito de m\'inima latencia posible en la visualizaci\'on de los datos en
+		el navegador que accede a la p\'agina web servida por la FPGA se necesita comunicaci\'on
+		bidireccional. Dicha comunicaci\'on no es f\'acilmente realizable con un servidor web de
+		protocolo HTTP. Si se quisiera utilizar un protocolo HTTP para este f\'in lo que cabr\'ia hacer
+		es que el cliente (navegador web) hiciera peticiones de tipo GET y POST para que el servidor le
+		responda con los datos. Esto es tremendamente lento debido a que con el protocolo HTTP cada vez
+		que se termina una petici\'on o respuesta a unos datos se cierra la conexi\'on. Una posible
+		soluci\'on a este problema es utilizar WebSockets. Un WebSocket es, \emph{grosso modo}, una
+		conexi\'on HTTP elevada a otro protocolo (WebSocket) que permite comunicaci\'on bidireccional en
+		cualquier momento, sin que cliente o servidor tengan que hacer una petici\'on. Para el
+		prop\'osito del trabajo esto es ideal puesto que una vez establecida la comunicaci\'on el
+		servidor puede mandar informaci\'on al cliente tan a menudo como sea necesario. Se puede
+		consultar toda la especificaci\'on del protocolo WebSockets en \cite{bib:ws}.
+
+		En la Figura \ref{fig:ws_diagrama} se puede ver un diagrama resumiendo c\'omo funciona el
+		protocolo WebSocket.
+
+		\begin{figure}[h!]
+			\centering
+			\includegraphics[width=0.3\textwidth]{./figuras/ws_diagrama.png}
+			\caption{Diagrama resumen del protocolo WebSocket}
+			\label{fig:ws_diagrama}
+		\end{figure}
+
+	\section{Lado cliente}
+
+		Tras todo el resto la \'ultima parte que compone este trabajo es la visualizaci\'on de los datos
+		en la p\'agina web. Para \'esta se ha utilizado un archivo HTML sencillo para crear un bot\'on
+		que sirva para abrir la conexi\'on WebSocket (elevar el protoclo HTTP), y una gr\'afica
+		utilizando librer\'ias de JavaScript ajenas \cite{bib:plotly-js}. Adem\'as de esto, hace falta
+		un peque\~no script en lenguaje JavaScript para gestionar la comunicaci\'on WebSocket.
+
+		\begin{figure}[h!]
+			\centering
+			%\includegraphics[width=0.3\textwidth]{./figuras/web_cliente.png}
+			AA
+			\caption{Web dise\~nada para este trabajo}
+			\label{fig:web_cliente}
+		\end{figure}
+
+	% \section{Placa adaptadora}
+
+	% 	Para facilitar las conexiones entre la placa FPGA y el sensor se ha dise\~nado una peque\~na
+	% 	placa de circuito impreso. Esta placa tiene un z\'ocalo donde conectar el conversor
+	% 	anal\'ogico -- digital y una tira de pines de conexi\'on para enchufarla a la placa de la
+	% 	FPGA. Por otro lado tambi\'en tiene una tira de pines de conexi\'on para acoplar el sensor.
+
+	\section{Conclusiones}
+
+		The conclusion goes here.
+
+	\section{Trabajo futuro}
+
+		Implementar el resto de funcionalidad del protocolo WebSocket: ser capaz de gestionar varias
+		conexiones, abrir/cerrar conexiones, etc\'etera.
+
+		Linealizar el sensor y calibrarlo de alguna manera. Puede ser necesario utilizar alg\'un
+		amplificador del nivel de tensi\'on en la salida del sensor.
+
+		Hacer que lo que se muestra en la web no sea solamente la lectura del conversor anal\'ogico
+		-- digital sino algo con m\'as sentido.
+
+	\bibliographystyle{IEEEtran}
+	\begin{thebibliography}{1}
+
+		\bibitem{bib:avnet}
+			Xilinx Inc., \emph{Avnet Spartan-6 LX9 MicroBoard}, \url{https://www.xilinx.com/products/boards-and-kits/1-3i2dfk.html}.
+
+		\bibitem{bib:lwip-example}
+			Avnet Inc., \emph{LwIP Applications Software 201 for the Spartan-6 LX9 MicroBoard}, \url{https://forums.xilinx.com/xlnx/attachments/xlnx/EMBEDDED/9425/2/AvtS6LX9MicroBoard_SW201_lwIP_Apps_14_4_01.pdf}.
+
+		\bibitem{bib:ws}
+			I.~Fette y A.~Melnikov, \emph{The WebSocket Protocol}, \url{https://www.rfc-editor.org/rfc/rfc6455.txt}.
+
+		\bibitem{bib:plotly-js}
+			Plotly, \emph{What is plotly.js?}, \url{https://plot.ly/javascript/}.
+
+	\end{thebibliography}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 %\begin{figure}[!t]
 %\centering
@@ -519,46 +321,3 @@ marko.peshevski@estudiant.upc.edu}}
 % Note that, LaTeX2e, unlike IEEE journals/conferences, places
 % footnotes above bottom floats. This can be corrected via the
 % \fnbelowfloat command of the stfloats package.
-
-\section{Conclusion}
-The conclusion goes here.
-
-% trigger a \newpage just before the given reference
-% number - used to balance the columns on the last page
-% adjust value as needed - may need to be readjusted if
-% the document is modified later
-%\IEEEtriggeratref{8}
-% The "triggered" command can be changed if desired:
-%\IEEEtriggercmd{\enlargethispage{-5in}}
-
-% references section
-
-% can use a bibliography generated by BibTeX as a .bbl file
-% BibTeX documentation can be easily obtained at:
-% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
-% The IEEEtran BibTeX style support page is at:
-% http://www.michaelshell.org/tex/ieeetran/bibtex/
-%\bibliographystyle{IEEEtran}
-% argument is your BibTeX string definitions and bibliography database(s)
-%\bibliography{IEEEabrv,../bib/paper}
-%
-% <OR> manually copy in the resultant .bbl file
-% set second argument of \begin to the number of references
-% (used to reserve space for the reference number labels box)
-\begin{thebibliography}{1}
-
-	\bibitem{bib:avnet}
-		Xilinx Inc., \emph{Avnet Spartan-6 LX9 MicroBoard}, \url{https://www.xilinx.com/products/boards-and-kits/1-3i2dfk.html}.
-
-	\bibitem{bib:lwip-example}
-		Avnet Inc., \emph{LwIP Applications Software 201 for the Spartan-6 LX9 MicroBoard}, \url{https://forums.xilinx.com/xlnx/attachments/xlnx/EMBEDDED/9425/2/AvtS6LX9MicroBoard_SW201_lwIP_Apps_14_4_01.pdf}.
-
-\end{thebibliography}
-
-
-
-
-% that's all folks
-\end{document}
-
-
