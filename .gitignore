@@ -13,3 +13,4 @@
 /documentacio/informe/*.*
 !/documentacio/informe/*.tex
 !/documentacio/informe/*.pdf
+/Adaptador/*/*.*#*
