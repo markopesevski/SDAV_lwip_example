@@ -14,3 +14,6 @@
 !/documentacio/informe/*.tex
 !/documentacio/informe/*.pdf
 /Adaptador/*/*.*#*
+/documentacio/presentacio/*.*
+!/documentacio/presentacio/*.tex
+!/documentacio/presentacio/*.pdf
