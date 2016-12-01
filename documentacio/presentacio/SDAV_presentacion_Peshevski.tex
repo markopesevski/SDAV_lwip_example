@@ -117,7 +117,7 @@
 	\title{Detector de nivel de agua y\\comunicaci\'on v\'ia Ethernet con FPGA}
 	\author{Marko Peshevski}
 	\institute{SDAV, MUESAEI}
-	\date{Septiembre - Diciembre, 2016}
+	\date{Septiembre -- Diciembre, 2016}
 % TITLE PAGE
 
 \begin{document}
@@ -165,10 +165,10 @@
 		\end{frame}
 
 \section{Soluci\'on}
-	\subsection{Sensor de agua -- FPGA}
+	\subsection{Sensor de nivel de agua -- FPGA}
 		\begin{frame}
 			\frametitle{Soluci\'on}
-			\framesubtitle{Sensor de agua -- FPGA}
+			\framesubtitle{Sensor de nivel de agua -- FPGA}
 				\begin{itemize}
 					\item
 					{
@@ -191,6 +191,13 @@
 				\end{itemize}
 				\begin{figure}
 					\includegraphics[keepaspectratio = true, totalheight=0.6\textheight]{figuras/adc_spi.png}
+				\end{figure}
+ 		\end{frame}
+		\begin{frame}
+			\frametitle{Soluci\'on}
+			\framesubtitle{Sensor de nivel de agua -- FPGA}
+				\begin{figure}
+					\includegraphics[keepaspectratio = true, totalheight=0.6\textheight]{figuras/adc_ok.png}
 				\end{figure}
  		\end{frame}
 
@@ -246,6 +253,22 @@
 				\end{itemize}
 				\begin{figure}
 					\includegraphics[keepaspectratio = true, totalheight=0.5\textheight]{figuras/ws_diagrama.png}
+				\end{figure}
+ 		\end{frame}
+		\begin{frame}
+			\frametitle{Soluci\'on}
+			\framesubtitle{WebSockets}
+				\begin{figure}
+					\includegraphics[keepaspectratio = true, totalheight=0.6\textheight]{figuras/adc_web_ok.png}
+				\end{figure}
+ 		\end{frame}
+
+	\subsection{Resumen estructura software servidor}
+		\begin{frame}
+			\frametitle{Soluci\'on}
+			\framesubtitle{Resumen estructura software servidor}
+				\begin{figure}
+					\includegraphics[keepaspectratio = true, totalheight=0.7\textheight]{figuras/capas_server.png}
 				\end{figure}
  		\end{frame}
 
